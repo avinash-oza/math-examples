@@ -100,15 +100,15 @@ if __name__ == '__main__':
 #   print "{0:.9f} {1:.9f} {2:.9f}".format(p, d, c)
     
     #Example for #9
-    flow_times = [2/12, 8/12, 14/12, 20/12]
-    flow_values = [3, 3, 3, 103]
-    tol_values = [math.pow(10,-4), math.pow(10, -4), math.pow(10,-4), math.pow(10,-6)]
-    p = bond_price_inst_rate(flow_times, flow_values, r_example9_t, tol_values)
-    print "{0:.6f}".format(p)
+#   flow_times = [2/12, 8/12, 14/12, 20/12]
+#   flow_values = [3, 3, 3, 103]
+#   tol_values = [math.pow(10,-4), math.pow(10, -4), math.pow(10,-4), math.pow(10,-6)]
+#   p = bond_price_inst_rate(flow_times, flow_values, r_example9_t, tol_values)
+#   print "{0:.6f}".format(p)
 
     #9
-#   flow_times = [6/12, 12/12, 18/12, 24/12]
-#   flow_values = [2.5, 2.5, 2.5, 102.5]
-#   tol_values = [math.pow(10,-6), math.pow(10, -6), math.pow(10,-6), math.pow(10,-8)]
-#   p = bond_price_inst_rate(flow_times, flow_values, r_homework9_t, tol_values)
-#   print "{0:.9f}".format(p)
+    flow_times = [6/12, 12/12, 18/12, 24/12]
+    flow_values = [2.5, 2.5, 2.5, 102.5]
+    tol_values = [math.pow(10,-6), math.pow(10, -6), math.pow(10,-6), math.pow(10,-8)]
+    p = bond_price_inst_rate(flow_times, flow_values, r_homework9_t, tol_values)
+    print "{0:.9f}".format(p)

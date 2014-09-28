@@ -23,7 +23,7 @@ def simpson_rule(a, b, f, n):
 def normal_converger(a, b, f, tol):
     n = 2
     abs_diff = 999999999999999999999999999
-    val_prev = 1/2 + (1/math.sqrt(2*math.pi))*simpson_rule(a, b, f, n)
+    val_prev = 0
 
     while abs_diff > tol:
         n *=2
@@ -37,7 +37,7 @@ def normal_converger(a, b, f, tol):
 def converger(a, b, f, tol):
     n = 2
     abs_diff = 999999999999999999999999999
-    val_prev = simpson_rule(a, b, f, n)
+    val_prev = 0
 
     while abs_diff > tol:
         n *=2
@@ -55,6 +55,7 @@ if __name__ == '__main__':
 #   print simpson_rule(0, 2, f_x, 100000)
 #   print converger(0, 2, f_x, math.pow(10,-12))
 
-    print normal_converger(0, .1, N__x, math.pow(10,-12))
-    print normal_converger(0, .5, N__x, math.pow(10,-12))
-    print normal_converger(0, 1, N__x, math.pow(10,-12))
+#   print normal_converger(0, .1, N__x, math.pow(10,-12))
+#   print normal_converger(0, .5, N__x, math.pow(10,-12))
+#   print normal_converger(0, 1, N__x, math.pow(10,-12))
+    pass
