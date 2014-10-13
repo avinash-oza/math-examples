@@ -30,7 +30,7 @@ def normal_converger(a, b, f, tol):
         val_next = 1/2 + (1/math.sqrt(2*math.pi))*simpson_rule(a, b, f, n)
         abs_diff = abs(val_prev-val_next)
 
-        print "N={0} simpson_rule = {1:.12f} abs_diff={2}".format(n, val_next, abs_diff)
+#       print "N={0} simpson_rule = {1:.12f} abs_diff={2}".format(n, val_next, abs_diff)
         
         val_prev = val_next
     return val_next
@@ -45,13 +45,13 @@ def converger(a, b, f, tol):
         val_next = simpson_rule(a, b, f, n)
         abs_diff = abs(val_prev-val_next)
 
-        print "N={0} simpson_rule = {1} abs_diff={2}".format(n, val_next, abs_diff)
+#       print "N={0} simpson_rule = {1} abs_diff={2}".format(n, val_next, abs_diff)
         
         val_prev = val_next
 
     return val_next
 
-def cumulative_distribution(z_value):
+def numerical_cumulative_distribution(z_value):
     z = abs(z_value)
     y = 1/(1 + 0.2316419*z)
     a1 = 0.319381530
@@ -77,6 +77,6 @@ if __name__ == '__main__':
 #   print normal_converger(0, 1, N__x, math.pow(10,-12))
 
 #   Test of table 3.1
-    print "{0:0.12f}".format(cumulative_distribution(0.45))
+    print "{0:0.12f}".format(numerical_cumulative_distribution(0.45))
     print normal_converger(0, .45, N__x, math.pow(10,-12))
     pass
