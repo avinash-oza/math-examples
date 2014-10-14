@@ -77,8 +77,8 @@ if __name__ == '__main__':
 #   print "IMPLIED VOL: {0:0.12f}".format(implied_volatility(7, 25, 20, 1, 0, 0.05, 0.25))
 
 #   HW 4 #6   
-#   print "IMPLIED VOL: {0:0.12f}".format(
-#   implied_volatility(price_call=2.5, S=30, K=30, T=1/2, q=0.01, r=0.03,initial_guess=0.5))
+    print "IMPLIED VOL: {0:0.12f}".format(
+    implied_volatility(price_call=2.5, S=30, K=30, T=1/2, q=0.01, r=0.03,initial_guess=0.5))
 
 
     #ef implied_volatility(price_call, S, K, T, q, r, tol):
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     print "IMPLIED VOL: {0:0.12f}".format(
     implied_volatility(price_call=2.75, S=40, K=40, T=5/12, q=0.01, r=0.025,initial_guess=0.5))
     
-    print "IMPLIED VOL VIA bisection method: {0:0.12f}".format(bisection_method(a=0.0001, b=1, f=f, tol_approx=math.pow(10, -6), tol_int=math.pow(10, -6), price_call=2.75))
+    print "IMPLIED VOL VIA bisection method: {0:0.12f}".format(bisection_method(a=0.0001, b=1, f=f, tol_approx=math.pow(10, -9), tol_int=math.pow(10, -6), price_call=2.75))
     print "IMPLIED VOL VIA secant method: {0:0.12f}".format(secant_method(x0=0.5, f=f, tol_approx=math.pow(10, -6),  price_call=2.75))
 
 #   HW 4 #10
