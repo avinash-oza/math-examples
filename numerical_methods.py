@@ -1,5 +1,10 @@
 from __future__ import division
 from functools import partial
+
+import logging
+logging.basicConfig(format='%(module)s - %(funcName)s - %(message)s', level=logging.INFO)
+log = logging.getLogger(__name__)
+
 import math
 import time
 import csv
@@ -21,7 +26,7 @@ def bisection_method(a, b, f, tol_approx, tol_int, price_call):
         else:
             x_left = x_solution
          
-#       print "Guess: {0:0.12f}".format(x_solution)
+        log.debug("Guess: {0:0.12f}".format(x_solution))
         
     return x_solution
 
@@ -32,19 +37,19 @@ def newtons_method(x0, f, f_prime, tol_approx, price_call):
     while abs(x_new - x_old) > tol_approx:
         x_old = x_new
         x_new = x_old - (f(sigma=x_old) - price_call)/f_prime(x=x_old)
- #      print "Guess: {0:0.12f}".format(x_new)
+        log.debug("Guess: {0:0.12f}".format(x_new))
     return x_new
 
-def secant_method(x0, f, tol_approx, price_call):
+def secant_method(x00, x0, f, tol_approx, tol_consec, price_call):
     x_new = x0
-    x_old = x0 - 1
+    x_old = x00
     x_oldest = 0
 
-    while abs((f(sigma=x_new) - price_call)) > tol_approx:
+    while abs((f(sigma=x_new) - price_call)) > tol_approx or abs(x_new - x_old) > tol_consec:
         x_oldest = x_old
         x_old = x_new
         x_new = x_old - (f(sigma=x_old) - price_call)*(x_old - x_oldest)/(f(sigma=x_old) - f(sigma=x_oldest))
-#       print "Guess: {0:0.12f}".format(x_new)
+        log.debug("Guess: {0:0.12f}".format(x_new))
 
     return x_new
     
@@ -58,7 +63,7 @@ def implied_volatility(price_call, S, K, T, q, r, initial_guess, option_type='CA
     while abs(x_new - x_old) > tol:
         x_old = x_new
         x_new = x_new - (black_scholes(0, S, K, T, x_new, q, r, option_type=option_type)- price_call)/vega_black_scholes(0, S, K, T, x_new, q, r)
-#       print "Implied guess: {0:0.12f}".format(x_new)
+        log.debug("Implied guess: {0:0.12f}".format(x_new))
     return x_new
 
 if __name__ == '__main__':
@@ -94,7 +99,7 @@ if __name__ == '__main__':
     implied_volatility(price_call=2.75, S=40, K=40, T=5/12, q=0.01, r=0.025,initial_guess=0.5))
     print "IMPLIED VOL NEWTONs METHOD: {0:0.12f}".format(
     newtons_method(x0=0.5, f=f, f_prime=vega_func, tol_approx=math.pow(10, -6),price_call=2.75))    
-#   print "IMPLIED VOL VIA bisection method: {0:0.12f}".format(bisection_method(a=0.0001, b=1, f=f, tol_approx=math.pow(10, -9), tol_int=math.pow(10, -6), price_call=2.75))
+    print "IMPLIED VOL VIA bisection method: {0:0.12f}".format(bisection_method(a=0.0001, b=1, f=f, tol_approx=math.pow(10, -9), tol_int=math.pow(10, -6), price_call=2.75))
 #   print "IMPLIED VOL VIA secant method: {0:0.12f}".format(secant_method(x0=0.5, f=f, tol_approx=math.pow(10, -6),  price_call=2.75))
 
 #   HW 4 #10

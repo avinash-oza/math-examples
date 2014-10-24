@@ -2,6 +2,10 @@ from __future__ import division
 import math
 from simpson_rule import converger
 
+import logging
+logging.basicConfig(format='%(module)s - %(funcName)s - %(message)s', level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
 def r_t(t):
     return 0.0525 + math.log(1+2*t)/200
 
@@ -26,36 +30,82 @@ def bond_price_inst_rate(cash_flow_times, cash_flow_values, inst_rate_function, 
         inst_rate = converger(0, flow_time, inst_rate_function, tol_values[i])
 
         discount_factor = math.exp(-inst_rate)
-        print "discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor)
+        log.debug("discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor))
         price += cash_flow_values[i] * discount_factor
 
     return price
 
-def bond_price(cash_flow_times, cash_flow_values, zero_rate_function):
+def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
     
     price = 0
 
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
         discount_factor = math.exp(-flow_time*zero_rate_function(flow_time))
-        print discount_factor
+        log.debug("Discount Factor: ".format(discount_factor))
         price += cash_flow_values[i] * discount_factor
 
     return price
 
-def price_duration_convexity(cash_flow_times, cash_flow_values, the_yield):
+def bond_price(cash_flow_times, cash_flow_values, the_yield):
     price = 0
+    for i in xrange(len(cash_flow_times)):
+        flow_time = cash_flow_times[i]
+        discount_factor = math.exp(-flow_time*the_yield)
+        price += cash_flow_values[i]*discount_factor
+
+    return price
+
+def bond_duration(cash_flow_times, cash_flow_values, the_yield):
+    price = bond_price(cash_flow_times, cash_flow_values, the_yield)
     duration = 0
+
+    for i in xrange(len(cash_flow_times)):
+        flow_time = cash_flow_times[i]
+        discount_factor = math.exp(-flow_time*the_yield)
+        duration += flow_time*cash_flow_values[i]*discount_factor
+        
+    return duration/price
+
+def bond_convexity(cash_flow_times, cash_flow_values, the_yield):
+    price = bond_price(cash_flow_times, cash_flow_values, the_yield)
     convexity = 0
 
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
         discount_factor = math.exp(-flow_time*the_yield)
         price += cash_flow_values[i]*discount_factor
-        duration += flow_time*cash_flow_values[i]*discount_factor
         convexity += flow_time*flow_time*cash_flow_values[i]*discount_factor
 
-    return price, duration/price, convexity/price
+    return convexity/price
+
+def bond_derivative(cash_flow_times, cash_flow_values, the_yield):
+    """Calculates the derivative of a bond for use with Newton's Method
+    Implemented from p149"""
+    f_prime = 0
+
+    for i in xrange(len(cash_flow_times)):
+        flow_time = cash_flow_times[i]
+        discount_factor = math.exp(-flow_time*the_yield)
+        f_prime += flow_time * cash_flow_values[i] * discount_factor
+
+    return -1 * f_prime
+
+def bond_yield(cash_flow_times, cash_flow_values, bond_market_price, tol=math.pow(10, -6)):
+    """Implements the bond yield formula using Newton's method on p150"""
+
+    assert len(cash_flow_times) == len(cash_flow_values), "Times and values length mismatch"
+    x0 = 0.1 # initital guess
+
+    x_new = x0
+    x_old = x0 -1
+
+    while abs(x_new - x_old) > tol:
+        x_old = x_new
+        x_new = x_old - (bond_price(cash_flow_times, cash_flow_values, x_old) - bond_market_price)/bond_derivative(cash_flow_times, cash_flow_values, x_old)
+        log.debug("Guess: {0:0.15f}".format(x_new))
+
+    return x_new
 
 if __name__ == '__main__':
 #   cash_flow_times = [2/12, 8/12, 14/12, 20/12]
@@ -107,8 +157,14 @@ if __name__ == '__main__':
 #   print "{0:.6f}".format(p)
 
     #9
-    flow_times = [6/12, 12/12, 18/12, 24/12]
-    flow_values = [2.5, 2.5, 2.5, 102.5]
-    tol_values = [math.pow(10,-6), math.pow(10, -6), math.pow(10,-6), math.pow(10,-8)]
-    p = bond_price_inst_rate(flow_times, flow_values, r_homework9_t, tol_values)
-    print "{0:.9f}".format(p)
+#   flow_times = [6/12, 12/12, 18/12, 24/12]
+#   flow_values = [2.5, 2.5, 2.5, 102.5]
+#   tol_values = [math.pow(10,-6), math.pow(10, -6), math.pow(10,-6), math.pow(10,-8)]
+#   p = bond_price_inst_rate(flow_times, flow_values, r_homework9_t, tol_values)
+#   print "{0:.9f}".format(p)
+
+#   p150 example
+    flow_times = [4/12, 10/12, 16/12, 22/12, 28/12, 34/12]
+    flow_values = [4, 4, 4, 4, 4, 104]
+    p = bond_yield(flow_times, flow_values, 105)
+    print "Bond yield {0:.9f}".format(p)
