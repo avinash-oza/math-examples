@@ -74,7 +74,6 @@ def bond_convexity(cash_flow_times, cash_flow_values, the_yield):
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
         discount_factor = math.exp(-flow_time*the_yield)
-        price += cash_flow_values[i]*discount_factor
         convexity += flow_time*flow_time*cash_flow_values[i]*discount_factor
 
     return convexity/price
@@ -164,7 +163,14 @@ if __name__ == '__main__':
 #   print "{0:.9f}".format(p)
 
 #   p150 example
-    flow_times = [4/12, 10/12, 16/12, 22/12, 28/12, 34/12]
-    flow_values = [4, 4, 4, 4, 4, 104]
-    p = bond_yield(flow_times, flow_values, 105)
-    print "Bond yield {0:.9f}".format(p)
+#   flow_times = [4/12, 10/12, 16/12, 22/12, 28/12, 34/12]
+#   flow_values = [4, 4, 4, 4, 4, 104]
+#   p = bond_yield(flow_times, flow_values, 105)
+#   print "Bond yield {0:.9f}".format(p)
+
+#   HW5 #1
+    flow_times = [6/12, 12/12, 18/12, 24/12, 30/12, 36/12]
+    flow_values = [2, 2, 2, 2, 2, 102]
+    the_yield = bond_yield(flow_times, flow_values, 101)
+    print "Bond yield {0:.9f}".format(the_yield)
+    print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
