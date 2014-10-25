@@ -2,8 +2,11 @@ from __future__ import division
 import math
 from simpson_rule import N__x,normal_converger, numerical_cumulative_distribution
 
+def d1(t,S,K,T,sigma,q,r):
+    return (math.log(S/K)+(r-q+sigma*sigma*0.5)*(T-t))/(sigma*math.sqrt(T-t))
+
 def black_scholes(t,S,K,T,sigma,q,r,option_type=None):
-    d1=(math.log(S/K)+(r-q+sigma*sigma*0.5)*(T-t))/(sigma*math.sqrt(T-t))
+    d1= d1(t, S, K, T, sigma, q, r)
     d2 = d1 - sigma*math.sqrt(T-t)
 
 #   print "d1={0} d2={1}".format(d1,d2)
@@ -20,7 +23,7 @@ def black_scholes(t,S,K,T,sigma,q,r,option_type=None):
         return put_price
 
 def estimated_black_scholes(t,S,K,T,sigma,q,r):
-    d1=(math.log(S/K)+(r-q+sigma*sigma*0.5)*(T-t))/(sigma*math.sqrt(T-t))
+    d1= d1(t, S, K, T, sigma, q, r)
     d2 = d1 - sigma*math.sqrt(T-t)
 
     print "d1={0} d2={1}".format(d1,d2)

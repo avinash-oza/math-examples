@@ -8,11 +8,18 @@ log = logging.getLogger(__name__)
 import math
 import time
 import csv
-from black_scholes import black_scholes, vega_black_scholes
+from simpson_rule import normal_converger, N__x
+from black_scholes import black_scholes, vega_black_scholes, d1
 
 def test_f(sigma):
     return math.pow(sigma, 4) - 5*sigma*sigma + 4 - 1/(1 + math.exp(math.pow(sigma,3)))
 
+def f_hw5_num3(t,S,x,T,sigma,q,r):
+    return (x*sigma*math.sqrt(2*math.pi*(T - t))*(math.exp(-q*(T-t))*normal_converger(0, d1(t,S,x,T,sigma,q,r), N__x, math.pow(10,-12)) - 0.5))
+
+def f_hw5_num3_deriv(t,S,x,T,sigma,q,r):
+    return -1*math.exp(-q*(T-t)-0.5*d1(t,S,x,T,sigma,q,r))
+    
 def bisection_method(a, b, f, tol_approx, tol_int, price_call):
     x_left = a
     x_right = b
@@ -36,7 +43,7 @@ def newtons_method(x0, f, f_prime, tol_approx, price_call):
 
     while abs(x_new - x_old) > tol_approx:
         x_old = x_new
-        x_new = x_old - (f(sigma=x_old) - price_call)/f_prime(x=x_old)
+        x_new = x_old - (f(x=x_old) - price_call)/f_prime(x=x_old)
         log.debug("Guess: {0:0.12f}".format(x_new))
     return x_new
 
@@ -92,14 +99,14 @@ if __name__ == '__main__':
 #   Test for bisection method
 #   print "IMPLIED VOL VIA bisection method: {0:0.12f}".format(bisection_method(a=-2, b=3, f=test_f, tol_approx=math.pow(10, -6), tol_int=math.pow(10, -9), price_call=0))
 
-    f = partial(black_scholes,t=0, S=40, K=40, T=5/12, q=0.01, r=0.025, option_type='CALL')
-    vega_func= partial(vega_black_scholes,t=0,S=40,K=40,T=5/12,q=0.01,r=0.025) 
+#   f = partial(black_scholes,t=0, S=40, K=40, T=5/12, q=0.01, r=0.025, option_type='CALL')
+#   vega_func= partial(vega_black_scholes,t=0,S=40,K=40,T=5/12,q=0.01,r=0.025) 
 
-    print "IMPLIED VOL: {0:0.12f}".format(
-    implied_volatility(price_call=2.75, S=40, K=40, T=5/12, q=0.01, r=0.025,initial_guess=0.5))
-    print "IMPLIED VOL NEWTONs METHOD: {0:0.12f}".format(
-    newtons_method(x0=0.5, f=f, f_prime=vega_func, tol_approx=math.pow(10, -6),price_call=2.75))    
-    print "IMPLIED VOL VIA bisection method: {0:0.12f}".format(bisection_method(a=0.0001, b=1, f=f, tol_approx=math.pow(10, -9), tol_int=math.pow(10, -6), price_call=2.75))
+#   print "IMPLIED VOL: {0:0.12f}".format(
+#   implied_volatility(price_call=2.75, S=40, K=40, T=5/12, q=0.01, r=0.025,initial_guess=0.5))
+#   print "IMPLIED VOL NEWTONs METHOD: {0:0.12f}".format(
+#   newtons_method(x0=0.5, f=f, f_prime=vega_func, tol_approx=math.pow(10, -6),price_call=2.75))    
+#   print "IMPLIED VOL VIA bisection method: {0:0.12f}".format(bisection_method(a=0.0001, b=1, f=f, tol_approx=math.pow(10, -9), tol_int=math.pow(10, -6), price_call=2.75))
 #   print "IMPLIED VOL VIA secant method: {0:0.12f}".format(secant_method(x0=0.5, f=f, tol_approx=math.pow(10, -6),  price_call=2.75))
 
 #   HW 4 #10
@@ -131,4 +138,19 @@ if __name__ == '__main__':
 #           print "Strike: {0}, P_MID: {1}, Num days: {2}, Impl vol:{3:0.12f}".format(case[0], case[1], case[2],
 #                   implied_volatility(price_call=case[1],S=1193.0, K=case[0], T=case[2], q=0.017, r=0.001,initial_guess=0.4))
 
+#################################################################
+#   HW 5 #3
+        
+#ef f_hw5_num3(t,S,x,T,sigma,q,r):
+#   return (x*sigma*math.sqrt(2*math.pi*(T - t))*(math.exp(-q*(T-t))*normal_converger(0, d1(t,S,x,T,sigma,q,r), N__x, math.pow(10,-12)) - 0.5)
+
+#ef f_hw5_num3_deriv(t,S,x,T,sigma,q,r):
+    f = partial(f_hw5_num3,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
+    f_deriv = partial(f_hw5_num3_deriv,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
+
+    print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
+    newtons_method(x0=30, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
+
+#de fnewtons_method(x0, f, f_prime, tol_approx, price_call):
+################################################################
     pass

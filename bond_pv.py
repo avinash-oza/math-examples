@@ -21,6 +21,9 @@ def r_example9_t(t):
 def r_homework9_t(t):
     return 0.05/(1+2*math.exp(-(1+t)*(1+t)))
 
+def r_homework5_2_t(t):
+    return 0.015 + t/(100 + math.sqrt(1 + t * t))
+
 def bond_price_inst_rate(cash_flow_times, cash_flow_values, inst_rate_function, tol_values):
     
     price = 0
@@ -168,9 +171,21 @@ if __name__ == '__main__':
 #   p = bond_yield(flow_times, flow_values, 105)
 #   print "Bond yield {0:.9f}".format(p)
 
+#######################################################################
 #   HW5 #1
     flow_times = [6/12, 12/12, 18/12, 24/12, 30/12, 36/12]
     flow_values = [2, 2, 2, 2, 2, 102]
     the_yield = bond_yield(flow_times, flow_values, 101)
     print "Bond yield {0:.9f}".format(the_yield)
     print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
+
+#   HW5 #2
+    flow_times = [1/12, 7/12, 13/12, 19/12, 25/12]
+    flow_values = [1.75, 1.75, 1.75, 1.75, 101.75]
+    market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_homework5_2_t)
+    print "Bond price {0:.9f}".format(market_bond_price)
+    the_yield = bond_yield(flow_times, flow_values, market_bond_price)
+    print "Bond yield {0:.9f}".format(the_yield)
+    print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
+
+########################################################################
