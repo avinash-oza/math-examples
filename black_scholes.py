@@ -1,12 +1,13 @@
 from __future__ import division
+from functools import partial
 import math
 from simpson_rule import N__x,normal_converger, numerical_cumulative_distribution
 
-def d1(t,S,K,T,sigma,q,r):
+def d_1(t,S,K,T,sigma,q,r):
     return (math.log(S/K)+(r-q+sigma*sigma*0.5)*(T-t))/(sigma*math.sqrt(T-t))
 
 def black_scholes(t,S,K,T,sigma,q,r,option_type=None):
-    d1= d1(t, S, K, T, sigma, q, r)
+    d1= d_1(t, S, K, T, sigma, q, r)
     d2 = d1 - sigma*math.sqrt(T-t)
 
 #   print "d1={0} d2={1}".format(d1,d2)
@@ -23,7 +24,7 @@ def black_scholes(t,S,K,T,sigma,q,r,option_type=None):
         return put_price
 
 def estimated_black_scholes(t,S,K,T,sigma,q,r):
-    d1= d1(t, S, K, T, sigma, q, r)
+    d1= d_1(t, S, K, T, sigma, q, r)
     d2 = d1 - sigma*math.sqrt(T-t)
 
     print "d1={0} d2={1}".format(d1,d2)
@@ -34,6 +35,10 @@ def estimated_black_scholes(t,S,K,T,sigma,q,r):
 def vega_black_scholes(t, S, K, T, x, q, r):
     d1=(math.log(S/K)+(r-q+x*x*0.5)*(T-t))/(x*math.sqrt(T-t))
     return 1/math.sqrt(2*math.pi)*S*math.exp(-q*T)*math.sqrt(T)*math.exp(-d1*d1/2)
+
+def call_approx(S, K, T, sigma, q, r):
+    """Implements approximation formula from HW 5"""
+    return sigma*S*math.sqrt(T/(2*math.pi))*(1 - 0.5*(r + q)*T) + 0.5*T*S*(r - q)
 
 if __name__ == '__main__':
 #   black_scholes (0,42,40,0.5,0.3,0.03,0.05)
@@ -64,6 +69,15 @@ if __name__ == '__main__':
 #   estimated_black_scholes(0, 40, 40, 3/12, 0.20, 0.01, 0.05)
 #   black_scholes(0, 40, 40, 3/12, 0.20, 0.01, 0.05)
 
-    print "VEGA TESt: {0:0.12f}".format(vega_black_scholes(0, 50, 50, 0.25, 0.3, 0, 0))
-    
+#   print "VEGA TESt: {0:0.12f}".format(vega_black_scholes(0, 50, 50, 0.25, 0.3, 0, 0))
+
+#####################################################################
+#   HW 5 #9
+    f = partial(call_approx, S=40, K=40, sigma=0.30, q=0.01, r=0.03)
+    bs = partial(black_scholes, t=0, S=40, K=40, sigma=0.30, q=0.01, r=0.03, option_type='CALL')
+    T_values = [12/12, 36/12, 60/12, 120/12, 240/12]
+    for t in T_values:
+        print "For T={0}:  Black Scholes: {1:0.9f}, Call Approx: {2:0.9f}, error={3:0.9f} ".format(
+        t, bs(T=t), f(T=t),  abs(f(T=t) - bs(T=t))/bs(T=t))
+#####################################################################
     pass

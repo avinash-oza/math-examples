@@ -9,22 +9,28 @@ import math
 import time
 import csv
 from simpson_rule import normal_converger, N__x
-from black_scholes import black_scholes, vega_black_scholes, d1
+from black_scholes import black_scholes, vega_black_scholes, d_1
 
 def test_f(sigma):
     return math.pow(sigma, 4) - 5*sigma*sigma + 4 - 1/(1 + math.exp(math.pow(sigma,3)))
 
 def f_hw5_num3(t,S,x,T,sigma,q,r):
-    return (x*sigma*math.sqrt(2*math.pi*(T - t))*(math.exp(-q*(T-t))*normal_converger(0, d1(t,S,x,T,sigma,q,r), N__x, math.pow(10,-12)) - 0.5))
+    return (x*sigma*math.sqrt(2*math.pi*(T - t))*(math.exp(-q*(T-t))*normal_converger(0, d_1(t,S,x,T,sigma,q,r), N__x, math.pow(10,-12)) - 0.5))
 
 def f_hw5_num3_deriv(t,S,x,T,sigma,q,r):
-    return -1*math.exp(-q*(T-t)-0.5*d1(t,S,x,T,sigma,q,r))
+    return -1*math.exp(-q*(T-t)-0.5*d_1(t,S,x,T,sigma,q,r))
 
 def f_hw5_num4(x):
-    return 2.5*(math.exp(-1*r_0_05*0.5)+math.exp(-r_0_1*1)+math.exp(-1.5*(0.75*x+0.25*r_0_1))+math.exp(-2*x) + math.exp(-2.5*(1.25*x-0.25*r_0_1)) + math.exp(-3*x)) + 100*math.exp(-3*x) - 102
+    return 2.5*(math.exp(-1*r_0_05*0.5)+math.exp(-r_0_1*1)+math.exp(-1.5*(0.25*x+0.75*r_0_1)) + math.exp(-2*(0.5*x+0.5*r_0_1))+ math.exp(-2.5*(0.75*x+0.25*r_0_1)) + math.exp(-3*x)) + 100*math.exp(-3*x) - 102
 
 def f_hw5_num4_deriv(x, r_0_05, r_0_1):
-    return 2.5*-1.5*0.75*math.exp(-1.5*(0.75*x+0.25*r_0_1)) + 2.5*-2*math.exp(-2*x) +2.5*-2.5*1.25*math.exp(-2.5*(1.25*x - 0.25*r_0_1)) + 102.5*-3*math.exp(-3*x)
+    return 2.5*-1.5*0.25*math.exp(-1.5*(0.25*x+0.75*r_0_1)) + 2.5*-2*0.5*math.exp(-2*(0.5*x+0.5*r_0_1)) +2.5*-2.5*0.75*math.exp(-2.5*(0.75*x + 0.25*r_0_1)) + 102.5*-3*math.exp(-3*x)
+
+def f_hw5_num4_part2(x, r_0_05, r_0_1, r_0_15, r_0_2, r_0_25, r_0_3):
+    return 3*(math.exp(-r_0_05*0.5) + math.exp(-r_0_1*1) + math.exp(-r_0_15*1.5) + math.exp(-r_0_2*2) + math.exp(-r_0_25*2.5) + math.exp(-r_0_3*3) + math.exp(-3.5*(0.25*x+0.75*r_0_3)) + math.exp(-4*(0.5*x + 0.5*r_0_3)) + math.exp(-4.5*(0.75*x + 0.25*r_0_3)) + math.exp(-5*x)) + 100*math.exp(-5*x) - 104
+    
+def f_hw5_num4_part2_deriv(x, r_0_3):
+    return 3*((-3.5)*(0.25)*math.exp(-3.5*(0.25*x+0.75*r_0_3)) +(-4)*(0.5)*math.exp(-4*(0.5*x + 0.5*r_0_3)) +(-4.5)*0.75*math.exp(-4.5*(0.75*x + 0.25*r_0_3)) + (-5)*math.exp(-5*x)) + 100*(-5)*math.exp(-5*x)
     
 def bisection_method(a, b, f, tol_approx, tol_int, price_call):
     x_left = a
@@ -50,7 +56,7 @@ def newtons_method(x0, f, f_prime, tol_approx, price_call):
     while abs(x_new - x_old) > tol_approx:
         x_old = x_new
         x_new = x_old - (f(x=x_old) - price_call)/f_prime(x=x_old)
-        log.debug("Guess: {0:0.12f}".format(x_new))
+        log.info("Guess: {0:0.9f}".format(x_new))
     return x_new
 
 def secant_method(x00, x0, f, tol_approx, tol_consec, price_call):
@@ -154,11 +160,35 @@ if __name__ == '__main__':
 #   newtons_method(x0=30, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
 ################################################################
+#   HW5 #4
+#   r_0_05 = -2*math.log(97.5/100)
+#   r_0_1 = -1*math.log((100-2.5*math.exp(-r_0_05*0.5))/102.5)
+#   f_deriv = partial(f_hw5_num4_deriv,r_0_05=r_0_05, r_0_1=r_0_1)
 
-    r_0_05 = -2*math.log(97.5/100)
-    r_0_1 = -1*math.log((100-2.5*math.exp(-r_0_05*0.5))/102.5)
-    f_deriv = partial(f_hw5_num4_deriv,r_0_05=r_0_05, r_0_1=r_0_1)
+#   r_0_3 = newtons_method(x0=0.05, f=f_hw5_num4, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0) 
 
-    print "Zero rate: {0:0.12f}".format(
-    newtons_method(x0=0.05, f=f_hw5_num4, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
+#   r_0_15 = 0.25*r_0_3 + 0.75*r_0_1
+#   r_0_2 = 0.50*r_0_3 + 0.50*r_0_1
+#   r_0_25 = 0.75*r_0_3 + 0.25*r_0_1
+
+#   f_r_0_5 = partial(f_hw5_num4_part2,r_0_05=r_0_05, r_0_1=r_0_1, r_0_15=r_0_15, r_0_2=r_0_2, r_0_25=r_0_25, r_0_3=r_0_3)
+
+#   f_deriv_r_0_5 = partial(f_hw5_num4_part2_deriv, r_0_3=r_0_3)
+
+#   r_0_5 = newtons_method(x0=0.05, f=f_r_0_5, f_prime=f_deriv_r_0_5, tol_approx=math.pow(10, -6),price_call=0) 
+
+#   r_0_35 = 0.25*r_0_5 + 0.75*r_0_3
+#   r_0_4 = 0.50*r_0_5 + 0.50*r_0_3
+#   r_0_45 = 0.75*r_0_5 + 0.25*r_0_3
+
+#   print "r(0,0.5): {0:0.9f}".format(r_0_05)
+#   print "r(0,1): {0:0.9f}".format(r_0_1)
+#   print "r(0,1.5): {0:0.9f}".format(r_0_15)
+#   print "r(0,2): {0:0.9f}".format(r_0_2)
+#   print "r(0,2.5): {0:0.9f}".format(r_0_25)
+#   print "r(0,3): {0:0.9f}".format(r_0_3)
+#   print "r(0,3.5): {0:0.9f}".format(r_0_35)
+#   print "r(0,4): {0:0.9f}".format(r_0_4)
+#   print "r(0,4.5): {0:0.9f}".format(r_0_45)
+#   print "r(0,5): {0:0.9f}".format(r_0_5)
     pass
