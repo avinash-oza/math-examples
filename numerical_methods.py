@@ -19,6 +19,12 @@ def f_hw5_num3(t,S,x,T,sigma,q,r):
 
 def f_hw5_num3_deriv(t,S,x,T,sigma,q,r):
     return -1*math.exp(-q*(T-t)-0.5*d1(t,S,x,T,sigma,q,r))
+
+def f_hw5_num4(x):
+    return 2.5*(math.exp(-1*r_0_05*0.5)+math.exp(-r_0_1*1)+math.exp(-1.5*(0.75*x+0.25*r_0_1))+math.exp(-2*x) + math.exp(-2.5*(1.25*x-0.25*r_0_1)) + math.exp(-3*x)) + 100*math.exp(-3*x) - 102
+
+def f_hw5_num4_deriv(x, r_0_05, r_0_1):
+    return 2.5*-1.5*0.75*math.exp(-1.5*(0.75*x+0.25*r_0_1)) + 2.5*-2*math.exp(-2*x) +2.5*-2.5*1.25*math.exp(-2.5*(1.25*x - 0.25*r_0_1)) + 102.5*-3*math.exp(-3*x)
     
 def bisection_method(a, b, f, tol_approx, tol_int, price_call):
     x_left = a
@@ -140,17 +146,19 @@ if __name__ == '__main__':
 
 #################################################################
 #   HW 5 #3
-        
-#ef f_hw5_num3(t,S,x,T,sigma,q,r):
-#   return (x*sigma*math.sqrt(2*math.pi*(T - t))*(math.exp(-q*(T-t))*normal_converger(0, d1(t,S,x,T,sigma,q,r), N__x, math.pow(10,-12)) - 0.5)
 
-#ef f_hw5_num3_deriv(t,S,x,T,sigma,q,r):
-    f = partial(f_hw5_num3,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
-    f_deriv = partial(f_hw5_num3_deriv,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
+#   f = partial(f_hw5_num3,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
+#   f_deriv = partial(f_hw5_num3_deriv,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
 
-    print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
-    newtons_method(x0=30, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
+#   print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
+#   newtons_method(x0=30, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
-#de fnewtons_method(x0, f, f_prime, tol_approx, price_call):
 ################################################################
+
+    r_0_05 = -2*math.log(97.5/100)
+    r_0_1 = -1*math.log((100-2.5*math.exp(-r_0_05*0.5))/102.5)
+    f_deriv = partial(f_hw5_num4_deriv,r_0_05=r_0_05, r_0_1=r_0_1)
+
+    print "Zero rate: {0:0.12f}".format(
+    newtons_method(x0=0.05, f=f_hw5_num4, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
     pass
