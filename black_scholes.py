@@ -73,11 +73,11 @@ if __name__ == '__main__':
 
 #####################################################################
 #   HW 5 #9
-    f = partial(call_approx, S=40, K=40, sigma=0.30, q=0.01, r=0.03)
-    bs = partial(black_scholes, t=0, S=40, K=40, sigma=0.30, q=0.01, r=0.03, option_type='CALL')
-    T_values = [12/12, 36/12, 60/12, 120/12, 240/12]
-    for t in T_values:
-        print "For T={0}:  Black Scholes: {1:0.9f}, Call Approx: {2:0.9f}, error={3:0.9f} ".format(
-        t, bs(T=t), f(T=t),  abs(f(T=t) - bs(T=t))/bs(T=t))
+#   f = partial(call_approx, S=40, K=40, sigma=0.30, q=0.01, r=0.03)
+#   bs = partial(black_scholes, t=0, S=40, K=40, sigma=0.30, q=0.01, r=0.03, option_type='CALL')
+#   T_values = [12/12, 36/12, 60/12, 120/12, 240/12]
+#   for t in T_values:
+#       print "For T={0}:  Black Scholes: {1:0.9f}, Call Approx: {2:0.9f}, error={3:0.9f} ".format(
+#       t, bs(T=t), f(T=t),  abs(f(T=t) - bs(T=t))/bs(T=t))
 #####################################################################
     pass
