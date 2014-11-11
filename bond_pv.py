@@ -213,4 +213,4 @@ if __name__ == '__main__':
         B_new_d_c = b_new_d_c(d)
         B_new_d_error = abs(B_new_d - B_price)/B_price
         B_new_d_c_error = abs(B_new_d_c - B_price)/B_price
-        print "Bond Value: {0:.9f}, b_new_d: {1:.9f}, b_new_d_c: {2:.9f}, b_new_d_error : {3:.9f}, b_new_d_c_error : {4:.9f}".format(B_price, B_new_d, B_new_d_c, B_new_d_error, B_new_d_c_error)
+        print "Delta: {delta:.4f} Bond Value: {0:.9f}, b_new_d: {1:.9f}, b_new_d_c: {2:.9f}, b_new_d_error : {3:.9f}, b_new_d_c_error : {4:.9f}".format(B_price, B_new_d, B_new_d_c, B_new_d_error, B_new_d_c_error, delta=d)
