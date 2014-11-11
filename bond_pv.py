@@ -203,7 +203,7 @@ if __name__ == '__main__':
         return B*(-1*bond_d*delta + 1)
 
     def b_new_d_c(delta, B=bond_p):
-        return B*(-1*bond_d*delta + 2/2 * delta*delta + 1)
+        return B*(-1*bond_d*delta + bond_c/2 * delta*delta + 1)
 
     print "Bond Price: {0:.9f}, Bond duration {1:.9f} , convexity: {2:.9f}".format(bond_p, bond_d, bond_c)
 
