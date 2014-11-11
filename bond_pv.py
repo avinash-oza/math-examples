@@ -173,19 +173,44 @@ if __name__ == '__main__':
 
 #######################################################################
 #   HW5 #1
-    flow_times = [6/12, 12/12, 18/12, 24/12, 30/12, 36/12]
-    flow_values = [2, 2, 2, 2, 2, 102]
-    the_yield = bond_yield(flow_times, flow_values, 101)
-    print "Bond yield {0:.9f}".format(the_yield)
-    print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
+#   flow_times = [6/12, 12/12, 18/12, 24/12, 30/12, 36/12]
+#   flow_values = [2, 2, 2, 2, 2, 102]
+#   the_yield = bond_yield(flow_times, flow_values, 101)
+#   print "Bond yield {0:.9f}".format(the_yield)
+#   print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
 
 #   HW5 #2
-    flow_times = [1/12, 7/12, 13/12, 19/12, 25/12]
-    flow_values = [1.75, 1.75, 1.75, 1.75, 101.75]
-    market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_homework5_2_t)
-    print "Bond price {0:.9f}".format(market_bond_price)
-    the_yield = bond_yield(flow_times, flow_values, market_bond_price)
-    print "Bond yield {0:.9f}".format(the_yield)
-    print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
+#   flow_times = [1/12, 7/12, 13/12, 19/12, 25/12]
+#   flow_values = [1.75, 1.75, 1.75, 1.75, 101.75]
+#   market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_homework5_2_t)
+#   print "Bond price {0:.9f}".format(market_bond_price)
+#   the_yield = bond_yield(flow_times, flow_values, market_bond_price)
+#   print "Bond yield {0:.9f}".format(the_yield)
+#   print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
 
 ########################################################################
+
+#   HW 6 #7
+    flow_times = [3/12, 6/12, 9/12, 12/12, 15/12, 18/12, 21/12, 24/12]
+    flow_values = [2, 2, 2, 2, 2, 2, 2, 102]
+    the_yield = 0.09
+    delta_y = [0.0010, 0.0050, 0.01, 0.02, 0.04]
+
+    bond_p = bond_price(flow_times, flow_values, the_yield)
+    bond_d = bond_duration(flow_times, flow_values, the_yield)
+    bond_c = bond_convexity(flow_times, flow_values, the_yield)
+    def b_new_d(delta, B=bond_p):
+        return B*(-1*bond_d*delta + 1)
+
+    def b_new_d_c(delta, B=bond_p):
+        return B*(-1*bond_d*delta + 2/2 * delta*delta + 1)
+
+    print "Bond Price: {0:.9f}, Bond duration {1:.9f} , convexity: {2:.9f}".format(bond_p, bond_d, bond_c)
+
+    for d in delta_y:
+        B_price = bond_price(flow_times, flow_values, the_yield +d)
+        B_new_d = b_new_d(d)
+        B_new_d_c = b_new_d_c(d)
+        B_new_d_error = abs(B_new_d - B_price)/B_price
+        B_new_d_c_error = abs(B_new_d_c - B_price)/B_price
+        print "Bond Value: {0:.9f}, b_new_d: {1:.9f}, b_new_d_c: {2:.9f}, b_new_d_error : {3:.9f}, b_new_d_c_error : {4:.9f}".format(B_price, B_new_d, B_new_d_c, B_new_d_error, B_new_d_c_error)
