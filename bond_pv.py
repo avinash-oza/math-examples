@@ -191,26 +191,27 @@ if __name__ == '__main__':
 ########################################################################
 
 #   HW 6 #7
-    flow_times = [3/12, 6/12, 9/12, 12/12, 15/12, 18/12, 21/12, 24/12]
-    flow_values = [2, 2, 2, 2, 2, 2, 2, 102]
-    the_yield = 0.09
-    delta_y = [0.0010, 0.0050, 0.01, 0.02, 0.04]
+#   flow_times = [3/12, 6/12, 9/12, 12/12, 15/12, 18/12, 21/12, 24/12]
+#   flow_values = [2, 2, 2, 2, 2, 2, 2, 102]
+#   the_yield = 0.09
+#   delta_y = [0.0010, 0.0050, 0.01, 0.02, 0.04]
 
-    bond_p = bond_price(flow_times, flow_values, the_yield)
-    bond_d = bond_duration(flow_times, flow_values, the_yield)
-    bond_c = bond_convexity(flow_times, flow_values, the_yield)
-    def b_new_d(delta, B=bond_p):
-        return B*(-1*bond_d*delta + 1)
+#   bond_p = bond_price(flow_times, flow_values, the_yield)
+#   bond_d = bond_duration(flow_times, flow_values, the_yield)
+#   bond_c = bond_convexity(flow_times, flow_values, the_yield)
+#   def b_new_d(delta, B=bond_p):
+#       return B*(-1*bond_d*delta + 1)
 
-    def b_new_d_c(delta, B=bond_p):
-        return B*(-1*bond_d*delta + bond_c/2 * delta*delta + 1)
+#   def b_new_d_c(delta, B=bond_p):
+#       return B*(-1*bond_d*delta + bond_c/2 * delta*delta + 1)
 
-    print "Bond Price: {0:.9f}, Bond duration {1:.9f} , convexity: {2:.9f}".format(bond_p, bond_d, bond_c)
+#   print "Bond Price: {0:.9f}, Bond duration {1:.9f} , convexity: {2:.9f}".format(bond_p, bond_d, bond_c)
 
-    for d in delta_y:
-        B_price = bond_price(flow_times, flow_values, the_yield +d)
-        B_new_d = b_new_d(d)
-        B_new_d_c = b_new_d_c(d)
-        B_new_d_error = abs(B_new_d - B_price)/B_price
-        B_new_d_c_error = abs(B_new_d_c - B_price)/B_price
-        print "Delta: {delta:.4f} Bond Value: {0:.9f}, b_new_d: {1:.9f}, b_new_d_c: {2:.9f}, b_new_d_error : {3:.9f}, b_new_d_c_error : {4:.9f}".format(B_price, B_new_d, B_new_d_c, B_new_d_error, B_new_d_c_error, delta=d)
+#   for d in delta_y:
+#       B_price = bond_price(flow_times, flow_values, the_yield +d)
+#       B_new_d = b_new_d(d)
+#       B_new_d_c = b_new_d_c(d)
+#       B_new_d_error = abs(B_new_d - B_price)/B_price
+#       B_new_d_c_error = abs(B_new_d_c - B_price)/B_price
+#       print "Delta: {delta:.4f} Bond Value: {0:.9f}, b_new_d: {1:.9f}, b_new_d_c: {2:.9f}, b_new_d_error : {3:.9f}, b_new_d_c_error : {4:.9f}".format(B_price, B_new_d, B_new_d_c, B_new_d_error, B_new_d_c_error, delta=d)
+    pass

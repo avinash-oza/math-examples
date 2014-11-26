@@ -31,7 +31,58 @@ def f_hw5_num4_part2(x, r_0_05, r_0_1, r_0_15, r_0_2, r_0_25, r_0_3):
     
 def f_hw5_num4_part2_deriv(x, r_0_3):
     return 3*((-3.5)*(0.25)*math.exp(-3.5*(0.25*x+0.75*r_0_3)) +(-4)*(0.5)*math.exp(-4*(0.5*x + 0.5*r_0_3)) +(-4.5)*0.75*math.exp(-4.5*(0.75*x + 0.25*r_0_3)) + (-5)*math.exp(-5*x)) + 100*(-5)*math.exp(-5*x)
+
+def r_0_3_f(coupon_rates, bond_prices, frequency, x, r_0_05, r_0_1):
+    coupon_value = coupon_rates[2]/frequency
+
+    return coupon_value*(math.exp(-1*r_0_05*0.5)+math.exp(-r_0_1*1)+math.exp(-1.5*(0.25*x+0.75*r_0_1)) + math.exp(-2*(0.5*x+0.5*r_0_1))+ math.exp(-2.5*(0.75*x+0.25*r_0_1)) + math.exp(-3*x)) + 100*math.exp(-3*x) - bond_prices[2]
+
+def r_0_3_deriv(coupon_rates, bond_prices, frequency, x, r_0_05, r_0_1):
+    coupon_value = coupon_rates[2]/frequency
+
+    return coupon_value*-1.5*0.25*math.exp(-1.5*(0.25*x+0.75*r_0_1)) + coupon_value*-2*0.5*math.exp(-2*(0.5*x+0.5*r_0_1)) +coupon_value*-2.5*0.75*math.exp(-2.5*(0.75*x + 0.25*r_0_1)) + (100 + coupon_value)*-3*math.exp(-3*x)
+
+def r_0_5_f(coupon_rates, bond_prices, frequency, x, r_0_05, r_0_1, r_0_15, r_0_2, r_0_25, r_0_3):
+    coupon_rate = coupon_rates[3]/frequency
+
+    return coupon_rate*(math.exp(-r_0_05*0.5) + math.exp(-r_0_1*1) + math.exp(-r_0_15*1.5) + math.exp(-r_0_2*2) + math.exp(-r_0_25*2.5) + math.exp(-r_0_3*3) + math.exp(-3.5*(0.25*x+0.75*r_0_3)) + math.exp(-4*(0.5*x + 0.5*r_0_3)) + math.exp(-4.5*(0.75*x + 0.25*r_0_3)) + math.exp(-5*x)) + 100*math.exp(-5*x) - bond_prices[3]
     
+def r_0_5_deriv(coupon_rates, bond_prices, frequency, x, r_0_3):
+    coupon_rate = coupon_rates[3]/frequency
+
+    return coupon_rate*((-3.5)*(0.25)*math.exp(-3.5*(0.25*x+0.75*r_0_3)) +(-4)*(0.5)*math.exp(-4*(0.5*x + 0.5*r_0_3)) +(-4.5)*0.75*math.exp(-4.5*(0.75*x + 0.25*r_0_3)) + (-5)*math.exp(-5*x)) + 100*(-5)*math.exp(-5*x)
+
+def bootstrap_semi_annual(coupon_rates, bond_prices, frequency):
+    r_0_05 = -2*math.log(bond_prices[0]/100)
+    r_0_1 = -1* math.log((100 - (coupon_rates[1]/frequency)* math.exp(-r_0_05*0.5))/(coupon_rates[1]/frequency + 100))
+
+    r_0_3_part = partial(r_0_3_f,coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency, r_0_05=r_0_05, r_0_1=r_0_1)
+    r_0_3_part_deriv = partial(r_0_3_deriv,coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency, r_0_05=r_0_05, r_0_1=r_0_1)
+
+    r_0_3 = newtons_method(x0=0.05, f=r_0_3_part, f_prime=r_0_3_part_deriv, tol_approx=math.pow(10, -6),price_call=0) 
+
+    r_0_15 = 0.25*r_0_3 + 0.75*r_0_1
+    r_0_2 = 0.50*r_0_3 + 0.50*r_0_1
+    r_0_25 = 0.75*r_0_3 + 0.25*r_0_1
+
+    r_0_5_part = partial(r_0_5_f,coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency,r_0_05=r_0_05, r_0_1=r_0_1, r_0_15=r_0_15, r_0_2=r_0_2, r_0_25=r_0_25, r_0_3=r_0_3)
+    r_0_5_part_deriv = partial(r_0_5_deriv, coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency, r_0_3=r_0_3)
+    r_0_5 = newtons_method(x0=0.05, f=r_0_5_part, f_prime=r_0_5_part_deriv, tol_approx=math.pow(10, -6),price_call=0) 
+
+    r_0_45 = 0.75*r_0_5 + 0.25*r_0_3
+    r_0_35 = 0.25*r_0_5 + 0.75*r_0_3
+    r_0_4 = 0.50*r_0_5 + 0.50*r_0_3
+
+    print "r(0,1.5): {0:0.9f}".format(r_0_15)
+    print "r(0,2): {0:0.9f}".format(r_0_2)
+    print "r(0,2.5): {0:0.9f}".format(r_0_25)
+    print "r(0,3): {0:0.9f}".format(r_0_3)
+    print "r(0,3.5): {0:0.9f}".format(r_0_35)
+    print "r(0,4): {0:0.9f}".format(r_0_4)
+    print "r(0,4.5): {0:0.9f}".format(r_0_45)
+    print "r(0,5): {0:0.9f}".format(r_0_5)
+
+
 def bisection_method(a, b, f, tol_approx, tol_int, price_call):
     x_left = a
     x_right = b
@@ -153,42 +204,16 @@ if __name__ == '__main__':
 #################################################################
 #   HW 5 #3
 
-    f = partial(f_hw5_num3,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
-    f_deriv = partial(f_hw5_num3_deriv,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
+#   f = partial(f_hw5_num3,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
+#   f_deriv = partial(f_hw5_num3_deriv,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
 
-    print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
-    newtons_method(x0=30, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -9),price_call=0))    
+#   print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
+#   newtons_method(x0=30, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -9),price_call=0))    
 
 ################################################################
 #   HW5 #4
-#   r_0_05 = -2*math.log(97.5/100)
-#   r_0_1 = -1*math.log((100-2.5*math.exp(-r_0_05*0.5))/102.5)
-#   f_deriv = partial(f_hw5_num4_deriv,r_0_05=r_0_05, r_0_1=r_0_1)
-
-#   r_0_3 = newtons_method(x0=0.05, f=f_hw5_num4, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0) 
-
-#   r_0_15 = 0.25*r_0_3 + 0.75*r_0_1
-#   r_0_2 = 0.50*r_0_3 + 0.50*r_0_1
-#   r_0_25 = 0.75*r_0_3 + 0.25*r_0_1
-
-#   f_r_0_5 = partial(f_hw5_num4_part2,r_0_05=r_0_05, r_0_1=r_0_1, r_0_15=r_0_15, r_0_2=r_0_2, r_0_25=r_0_25, r_0_3=r_0_3)
-
-#   f_deriv_r_0_5 = partial(f_hw5_num4_part2_deriv, r_0_3=r_0_3)
-
-#   r_0_5 = newtons_method(x0=0.05, f=f_r_0_5, f_prime=f_deriv_r_0_5, tol_approx=math.pow(10, -6),price_call=0) 
-
-#   r_0_35 = 0.25*r_0_5 + 0.75*r_0_3
-#   r_0_4 = 0.50*r_0_5 + 0.50*r_0_3
-#   r_0_45 = 0.75*r_0_5 + 0.25*r_0_3
-
-#   print "r(0,0.5): {0:0.9f}".format(r_0_05)
-#   print "r(0,1): {0:0.9f}".format(r_0_1)
-#   print "r(0,1.5): {0:0.9f}".format(r_0_15)
-#   print "r(0,2): {0:0.9f}".format(r_0_2)
-#   print "r(0,2.5): {0:0.9f}".format(r_0_25)
-#   print "r(0,3): {0:0.9f}".format(r_0_3)
-#   print "r(0,3.5): {0:0.9f}".format(r_0_35)
-#   print "r(0,4): {0:0.9f}".format(r_0_4)
-#   print "r(0,4.5): {0:0.9f}".format(r_0_45)
-#   print "r(0,5): {0:0.9f}".format(r_0_5)
+    coupon_rates = [0, 5, 5, 6]
+    bond_prices = [97.5, 100, 102, 104]
+    frequency = 2
+    bootstrap_semi_annual(coupon_rates, bond_prices, frequency)
     pass
