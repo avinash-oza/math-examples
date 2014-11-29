@@ -77,11 +77,11 @@ if __name__ == '__main__':
 #   print simpson_rule(0, 2, f_x, 100000)
 #   print converger(0, 2, f_x, math.pow(10,-12))
 
-    print normal_converger(0, 0.49028792795679105, N__x, math.pow(10,-12))
+#   print normal_converger(0, 0.49028792795679105, N__x, math.pow(10,-12))
 #   print normal_converger(0, .5, N__x, math.pow(10,-12))
 #   print normal_converger(0, 1, N__x, math.pow(10,-12))
 
 #   Test of table 3.1
 #   print "{0:0.12f}".format(numerical_cumulative_distribution(0.45))
 #   print normal_converger(0, .45, N__x, math.pow(10,-12))
-#   pass
+    pass
