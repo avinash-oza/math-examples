@@ -22,7 +22,8 @@ class ConvergerTestCases(unittest.TestCase):
          self.assertAlmostEqual(converger(0, 2, f_x, math.pow(10,-12), approx_func=simpson_rule), 0.882081390762, places=12)
 
     def test_midpoint_converger(self):
-         self.assertAlmostEqual(converger(0, 2, f_x, 1.4*math.pow(10,-7), approx_func=midpoint_rule), 0.88208144, places=8)
+        """Tests midpoint rule. Weird tolerance is added to match p49 512 interval number"""
+        self.assertAlmostEqual(converger(0, 2, f_x, 1.4*math.pow(10,-7), approx_func=midpoint_rule), 0.88208144, places=8)
 
 class NormalDistributionTestCases(unittest.TestCase):
     def test_approx_cumulative_distribution(self):
