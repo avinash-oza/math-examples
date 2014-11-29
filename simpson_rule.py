@@ -12,6 +12,14 @@ def f_x(x):
 def N__x(x):
     return math.exp(-x*x/2)
 
+def midpoint_rule(a, b, f, n):
+    h = (b-a)/n
+    result = 0
+
+    for i in xrange(1, n + 1):
+        result += f(a + (i - 0.5)*h)
+    return result * h
+
 def simpson_rule(a, b, f, n):
     h = (b-a)/n
     result = (f(a) + f(b))/6
@@ -40,17 +48,17 @@ def normal_converger(a, b, f, tol):
         val_prev = val_next
     return val_next
 
-def converger(a, b, f, tol):
+def converger(a, b, f, tol, approx_func):
     n = 2
     abs_diff = 999999999999999999999999999
     val_prev = 0
 
     while abs_diff > tol:
         n *=2
-        val_next = simpson_rule(a, b, f, n)
+        val_next = approx_func(a, b, f, n)
         abs_diff = abs(val_prev-val_next)
 
-        log.debug("N={0} simpson_rule = {1} abs_diff={2}".format(n, val_next, abs_diff))
+        log.debug("N={intervals} {approx_func} = {func_value} abs_diff={the_diff}".format(intervals=n, approx_func=approx_func.__name__, func_value=val_next, the_diff=abs_diff))
         
         val_prev = val_next
 
