@@ -84,6 +84,8 @@ def bootstrap_semi_annual(coupon_rates, bond_prices, frequency):
 
 
 def bisection_method(a, b, f, tol_approx, tol_int, price_call):
+    """Implements bisection method on p136
+    """
     x_left = a
     x_right = b
     x_solution = 0
@@ -101,6 +103,8 @@ def bisection_method(a, b, f, tol_approx, tol_int, price_call):
     return x_solution
 
 def newtons_method(x0, f, f_prime, tol_approx, price_call, tol_consec=math.pow(10, -6)):
+    """Implements newtons method on p139
+    """
     x_new = x0
     x_old = x0 - 1
 
@@ -111,6 +115,8 @@ def newtons_method(x0, f, f_prime, tol_approx, price_call, tol_consec=math.pow(1
     return x_new
 
 def secant_method(x00, x0, f, tol_approx, tol_consec, price_call):
+    """Implements secant method on p143
+    """
     x_new = x0
     x_old = x00
     x_oldest = 0
@@ -124,7 +130,8 @@ def secant_method(x00, x0, f, tol_approx, tol_consec, price_call):
     return x_new
     
 def implied_volatility(price_call, S, K, T, q, r, initial_guess, option_type='CALL'):
-
+    """Calculates implied volatility by evaluating black scholes using p152
+    """
     x0 = initial_guess # An initial guess
     x_new = x0
     x_old = x0 - 1

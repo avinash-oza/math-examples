@@ -25,6 +25,8 @@ def r_homework5_2_t(t):
     return 0.015 + t/(100 + math.sqrt(1 + t * t))
 
 def bond_price_inst_rate(cash_flow_times, cash_flow_values, inst_rate_function, tol_values):
+    """Bond price code on p67 for r(t) function
+    """
     
     price = 0
 
@@ -39,6 +41,9 @@ def bond_price_inst_rate(cash_flow_times, cash_flow_values, inst_rate_function, 
     return price
 
 def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
+    """Bond price code on p66.
+    
+    """
     
     price = 0
 
@@ -51,6 +56,8 @@ def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
     return price
 
 def bond_price(cash_flow_times, cash_flow_values, the_yield):
+    """Bond price code on p69 
+    """
     price = 0
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
@@ -60,6 +67,8 @@ def bond_price(cash_flow_times, cash_flow_values, the_yield):
     return price
 
 def bond_duration(cash_flow_times, cash_flow_values, the_yield):
+    """Bond duration code on p69 
+    """
     price = bond_price(cash_flow_times, cash_flow_values, the_yield)
     duration = 0
 
@@ -71,6 +80,8 @@ def bond_duration(cash_flow_times, cash_flow_values, the_yield):
     return duration/price
 
 def bond_convexity(cash_flow_times, cash_flow_values, the_yield):
+    """Bond convexity code on p69 
+    """
     price = bond_price(cash_flow_times, cash_flow_values, the_yield)
     convexity = 0
 
