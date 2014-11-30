@@ -92,6 +92,9 @@ def bond_convexity(cash_flow_times, cash_flow_values, the_yield, dollar_type=Fal
 
     return convexity if dollar_type else convexity/price
 
+def DV01(dollar_duration):
+    return dollar_duration/10000
+
 def bond_derivative(cash_flow_times, cash_flow_values, the_yield):
     """Calculates the derivative of a bond for use with Newton's Method
     Implemented from p149"""
@@ -191,13 +194,19 @@ if __name__ == '__main__':
 #   print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
 
 #   HW5 #2
-#   flow_times = [1/12, 7/12, 13/12, 19/12, 25/12]
-#   flow_values = [1.75, 1.75, 1.75, 1.75, 101.75]
-#   market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_homework5_2_t)
-#   print "Bond price {0:.9f}".format(market_bond_price)
-#   the_yield = bond_yield(flow_times, flow_values, market_bond_price)
-#   print "Bond yield {0:.9f}".format(the_yield)
-#   print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
+    flow_times = [5/12, 11/12,17/12,23/12,29/12]
+    flow_values = [2.5, 2.5, 2.5, 2.5, 102.5]
+    def r_t(t):
+        return 0.02 + (1+2*t*t)/(100+100*t*t)
+    market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_t)
+    print "Bond price {0:.9f}".format(market_bond_price)
+    the_yield = bond_yield(flow_times, flow_values, market_bond_price)
+    print "Bond yield {0:.9f}".format(the_yield)
+    b_duration = bond_duration(flow_times, flow_values,the_yield,dollar_type=False)
+    b_convexity = bond_convexity(flow_times, flow_values, the_yield,dollar_type=False)
+    dv01 = DV01(bond_duration(flow_times, flow_values, the_yield,dollar_type=True))
+
+    print "Bond duration {b_duration:.9f} , convexity: {b_convexity:.9f}, dv01={dv01}".format(b_duration=b_duration, b_convexity=b_convexity, dv01=dv01)
 
 ########################################################################
 
