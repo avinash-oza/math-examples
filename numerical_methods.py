@@ -219,8 +219,8 @@ if __name__ == '__main__':
 
 ################################################################
 #   HW5 #4
-    coupon_rates = [0, 5, 5, 6]
-    bond_prices = [97.5, 100, 102, 104]
-    frequency = 2
-    bootstrap_semi_annual(coupon_rates, bond_prices, frequency)
+#   coupon_rates = [0, 5, 5, 6]
+#   bond_prices = [97.5, 100, 102, 104]
+#   frequency = 2
+#   bootstrap_semi_annual(coupon_rates, bond_prices, frequency)
     pass
