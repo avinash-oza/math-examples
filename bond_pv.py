@@ -66,7 +66,7 @@ def bond_price(cash_flow_times, cash_flow_values, the_yield):
 
     return price
 
-def bond_duration(cash_flow_times, cash_flow_values, the_yield):
+def bond_duration(cash_flow_times, cash_flow_values, the_yield, dollar_type=False):
     """Bond duration code on p69 
     """
     price = bond_price(cash_flow_times, cash_flow_values, the_yield)
@@ -77,9 +77,9 @@ def bond_duration(cash_flow_times, cash_flow_values, the_yield):
         discount_factor = math.exp(-flow_time*the_yield)
         duration += flow_time*cash_flow_values[i]*discount_factor
         
-    return duration/price
+    return duration if dollar_type else duration/price
 
-def bond_convexity(cash_flow_times, cash_flow_values, the_yield):
+def bond_convexity(cash_flow_times, cash_flow_values, the_yield, dollar_type=False):
     """Bond convexity code on p69 
     """
     price = bond_price(cash_flow_times, cash_flow_values, the_yield)
@@ -90,7 +90,7 @@ def bond_convexity(cash_flow_times, cash_flow_values, the_yield):
         discount_factor = math.exp(-flow_time*the_yield)
         convexity += flow_time*flow_time*cash_flow_values[i]*discount_factor
 
-    return convexity/price
+    return convexity if dollar_type else convexity/price
 
 def bond_derivative(cash_flow_times, cash_flow_values, the_yield):
     """Calculates the derivative of a bond for use with Newton's Method
