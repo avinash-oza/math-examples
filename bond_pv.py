@@ -1,6 +1,6 @@
 from __future__ import division
 import math
-from simpson_rule import converger
+from simpson_rule import converger, simpson_rule
 
 import logging
 logging.basicConfig(format='%(module)s - %(funcName)s - %(message)s', level=logging.DEBUG)
@@ -32,7 +32,7 @@ def bond_price_inst_rate(cash_flow_times, cash_flow_values, inst_rate_function, 
 
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
-        inst_rate = converger(0, flow_time, inst_rate_function, tol_values[i])
+        inst_rate = converger(0, flow_time, inst_rate_function, tol_values[i], simpson_rule)
 
         discount_factor = math.exp(-inst_rate)
         log.debug("discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor))
@@ -50,7 +50,7 @@ def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
         discount_factor = math.exp(-flow_time*zero_rate_function(flow_time))
-        log.debug("Discount Factor: ".format(discount_factor))
+        log.debug("discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor))
         price += cash_flow_values[i] * discount_factor
 
     return price
@@ -168,7 +168,7 @@ if __name__ == '__main__':
 #   tol_values = [math.pow(10,-4), math.pow(10, -4), math.pow(10,-4), math.pow(10,-6)]
 #   p = bond_price_inst_rate(flow_times, flow_values, r_example9_t, tol_values)
 #   print "{0:.6f}".format(p)
-
+            
     #9
 #   flow_times = [6/12, 12/12, 18/12, 24/12]
 #   flow_values = [2.5, 2.5, 2.5, 102.5]
