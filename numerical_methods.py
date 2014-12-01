@@ -8,14 +8,14 @@ log = logging.getLogger(__name__)
 import math
 import time
 import csv
-from simpson_rule import normal_converger, N__x
+from simpson_rule import N, N__x
 from black_scholes import black_scholes, vega_black_scholes, d_1
 
 def test_f(sigma):
     return math.pow(sigma, 4) - 5*sigma*sigma + 4 - 1/(1 + math.exp(math.pow(sigma,3)))
 
 def f_hw5_num3(t,S,x,T,sigma,q,r):
-    return (x*sigma*math.sqrt(2*math.pi*(T - t))*(math.exp(-q*(T-t))*normal_converger(0, d_1(t,S,x,T,sigma,q,r), N__x, math.pow(10,-12)) - 0.5))
+    return (x*sigma*math.sqrt(2*math.pi*(T - t))*(math.exp(-q*(T-t))*N(d_1(t,S,x,T,sigma,q,r)) - 0.5))
 
 def f_hw5_num3_deriv(t,S,x,T,sigma,q,r):
     return -1*math.exp(-q*(T-t)-0.5*math.pow(d_1(t,S,x,T,sigma,q,r),2))
@@ -148,13 +148,13 @@ if __name__ == '__main__':
 #   print simpson_rule(0, 2, f_x, 100000)
 #   print converger(0, 2, f_x, math.pow(10,-12))
 
-#   print normal_converger(0, .1, N__x, math.pow(10,-12))
-#   print normal_converger(0, .5, N__x, math.pow(10,-12))
-#   print normal_converger(0, 1, N__x, math.pow(10,-12))
+#   print N(.1)
+#   print N(.5)
+#   print N(1)
 
 #   Test of table 3.1
 #   print "{0:0.12f}".format(numerical_cumulative_distribution(0.45))
-#   print normal_converger(0, .45, N__x, math.pow(10,-12))
+#   print N(.45)
     
 #   Test of 5.7
 #   print "IMPLIED VOL: {0:0.12f}".format(implied_volatility(7, 25, 20, 1, 0, 0.05, 0.25))
@@ -213,9 +213,18 @@ if __name__ == '__main__':
 
 #   f = partial(f_hw5_num3,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
 #   f_deriv = partial(f_hw5_num3_deriv,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
+    def p_bs(t,S,x,T,sigma,q,r,option_type=None):
+        return black_scholes(t,S,x,T,sigma,q,r,option_type=option_type) - x + S
 
-#   print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
-#   newtons_method(x0=30, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -9),price_call=0))    
+    def delta(t,S,x,T,sigma,q,r,option_type=None):
+        d1 = d_1(t,S,x,T,sigma,q,r)    
+        d2 = d1 - sigma*math.sqrt(T-t)
+        return math.exp(-r*T)*(N(-d2) - math.exp(-0.5*d2*d2)/(sigma*math.sqrt(2*math.pi*T))) + (S*math.exp(-q*T-0.5*d1*d1))/(x*sigma*math.sqrt(2*math.pi*T)) - 1
+
+    f = partial(p_bs, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
+    f_deriv = partial(delta, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
+    print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
+    newtons_method(x0=50, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
 ################################################################
 #   HW5 #4

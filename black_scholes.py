@@ -1,7 +1,7 @@
 from __future__ import division
 from functools import partial
 import math
-from simpson_rule import N__x,normal_converger, numerical_cumulative_distribution
+from simpson_rule import N, N__x, numerical_cumulative_distribution
 import logging
 logging.basicConfig(format='%(module)s - %(funcName)s - %(message)s', level=logging.DEBUG)
 log = logging.getLogger(__name__)
@@ -14,8 +14,8 @@ def black_scholes(t,S,K,T,sigma,q,r,option_type=None):
     d2 = d1 - sigma*math.sqrt(T-t)
 
     log.debug("d1={0} d2={1}".format(d1,d2))
-    call_price = S*math.exp(-q*(T-t))*normal_converger(0,d1,N__x,math.pow(10,-12)) - K*math.exp(-r*(T-t))*normal_converger(0,d2,N__x,math.pow(10,-12))
-    put_price = -S*math.exp(-q*(T-t))*normal_converger(0,-d1,N__x,math.pow(10,-12)) + K*math.exp(-r*(T-t))*normal_converger(0,-d2,N__x,math.pow(10,-12))
+    call_price = S*math.exp(-q*(T-t))*N(d1) - K*math.exp(-r*(T-t))*N(d2)
+    put_price = -S*math.exp(-q*(T-t))*N(-d1) + K*math.exp(-r*(T-t))*N(-d2)
 
     if option_type is None:
         log.warning ("NO OPTION TYPE PASSED, ASSUMING CALL")
