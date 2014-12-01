@@ -55,6 +55,21 @@ def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
 
     return price
 
+def calculate_flows(coupon, frequency, maturity):
+    """
+    coupon in dollars
+    frequency is an int
+    maturity in months
+    returns intervals scaled by years
+    """
+    flow_times = range(maturity, 0, int(-12/frequency))
+    flow_times.reverse()
+    flow_times = [t/12 for t in flow_times]
+    flow_values = [coupon/frequency for i in flow_times[:-1]] + [100+coupon/frequency]
+
+    log.info("Flow times={times} \nFlow Values = {values}".format(times=flow_times, values=flow_values))
+    return flow_times, flow_values
+
 def bond_price(cash_flow_times, cash_flow_values, the_yield):
     """Bond price code on p69 
     """
@@ -194,8 +209,7 @@ if __name__ == '__main__':
 #   print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
 
 #   HW5 #2
-    flow_times = [5/12, 11/12,17/12,23/12,29/12]
-    flow_values = [2.5, 2.5, 2.5, 2.5, 102.5]
+    flow_times, flow_values = calculate_flows(coupon=5, frequency=2, maturity=29)
     def r_t(t):
         return 0.02 + (1+2*t*t)/(100+100*t*t)
     market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_t)
