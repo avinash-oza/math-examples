@@ -220,7 +220,8 @@ if __name__ == '__main__':
         # Replace coupon here
         coupon = 2.5
         # Replace coupon and times for the intervals we need
-        return coupon*(calculate_df(r_0_05, 0.5) \
+        return coupon*(\
+          calculate_df(r_0_05, 0.5) \
         + calculate_df(r_0_1, 1) \
         + calculate_df(rate_func(i_tuple=r_0_15, r2=x), 1.5) \
         + calculate_df(rate_func(i_tuple=r_0_2, r2=x),2)) \
@@ -233,7 +234,8 @@ if __name__ == '__main__':
 
         # Replace proper rates into below with tuple indexes the same
         # This should only contain factors that contain x
-        return coupon*(r_0_15[1]*1.5*calculate_df(rate_func(i_tuple=r_0_15,r2=x), 1.5) \
+        return coupon*(\
+        - r_0_15[1]*1.5*calculate_df(rate_func(i_tuple=r_0_15,r2=x), 1.5) \
         - r_0_2[1]*2*calculate_df(rate_func(i_tuple=r_0_2, r2=x),2)) \
         - 2.5* (100+coupon)*calculate_df(x, 2.5) 
 
