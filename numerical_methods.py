@@ -9,6 +9,7 @@ import math
 import time
 import csv
 from simpson_rule import N, N__x
+from bond_pv import calculate_df, lin_interpolator
 from black_scholes import black_scholes, vega_black_scholes, d_1, estimated_black_scholes
 
 def test_f(sigma):
@@ -52,36 +53,6 @@ def r_0_5_deriv(coupon_rates, bond_prices, frequency, x, r_0_3):
 
     return coupon_rate*((-3.5)*(0.25)*math.exp(-3.5*(0.25*x+0.75*r_0_3)) +(-4)*(0.5)*math.exp(-4*(0.5*x + 0.5*r_0_3)) +(-4.5)*0.75*math.exp(-4.5*(0.75*x + 0.25*r_0_3)) + (-5)*math.exp(-5*x)) + 100*(-5)*math.exp(-5*x)
 
-def bootstrap_semi_annual(coupon_rates, bond_prices, frequency):
-    r_0_05 = -2*math.log(bond_prices[0]/100)
-    r_0_1 = -1* math.log((100 - (coupon_rates[1]/frequency)* math.exp(-r_0_05*0.5))/(coupon_rates[1]/frequency + 100))
-
-    r_0_3_part = partial(r_0_3_f,coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency, r_0_05=r_0_05, r_0_1=r_0_1)
-    r_0_3_part_deriv = partial(r_0_3_deriv,coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency, r_0_05=r_0_05, r_0_1=r_0_1)
-
-    r_0_3 = newtons_method(x0=0.05, f=r_0_3_part, f_prime=r_0_3_part_deriv, tol_approx=math.pow(10, -6),price_call=0) 
-
-    r_0_15 = 0.25*r_0_3 + 0.75*r_0_1
-    r_0_2 = 0.50*r_0_3 + 0.50*r_0_1
-    r_0_25 = 0.75*r_0_3 + 0.25*r_0_1
-
-    r_0_5_part = partial(r_0_5_f,coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency,r_0_05=r_0_05, r_0_1=r_0_1, r_0_15=r_0_15, r_0_2=r_0_2, r_0_25=r_0_25, r_0_3=r_0_3)
-    r_0_5_part_deriv = partial(r_0_5_deriv, coupon_rates=coupon_rates, bond_prices=bond_prices, frequency=frequency, r_0_3=r_0_3)
-    r_0_5 = newtons_method(x0=0.05, f=r_0_5_part, f_prime=r_0_5_part_deriv, tol_approx=math.pow(10, -6),price_call=0) 
-
-    r_0_45 = 0.75*r_0_5 + 0.25*r_0_3
-    r_0_35 = 0.25*r_0_5 + 0.75*r_0_3
-    r_0_4 = 0.50*r_0_5 + 0.50*r_0_3
-
-    print "r(0,1.5): {0:0.9f}".format(r_0_15)
-    print "r(0,2): {0:0.9f}".format(r_0_2)
-    print "r(0,2.5): {0:0.9f}".format(r_0_25)
-    print "r(0,3): {0:0.9f}".format(r_0_3)
-    print "r(0,3.5): {0:0.9f}".format(r_0_35)
-    print "r(0,4): {0:0.9f}".format(r_0_4)
-    print "r(0,4.5): {0:0.9f}".format(r_0_45)
-    print "r(0,5): {0:0.9f}".format(r_0_5)
-
 
 def bisection_method(a, b, f, tol_approx, tol_int, price_call):
     """Implements bisection method on p136
@@ -109,9 +80,10 @@ def newtons_method(x0, f, f_prime, tol_approx, price_call, tol_consec=math.pow(1
     x_old = x0 - 1
 
     while abs(f(x=x_new)) > tol_approx or abs(x_new- x_old) > tol_consec:
+        log.info("Guess: {0:0.9f}".format(x_new))
         x_old = x_new
         x_new = x_old - (f(x=x_old) - price_call)/f_prime(x=x_old)
-        log.info("Guess: {0:0.9f}".format(x_new))
+    log.info("Final Guess: {0:0.9f}".format(x_new))
     return x_new
 
 def secant_method(x00, x0, f, tol_approx, tol_consec, price_call):
@@ -160,8 +132,8 @@ if __name__ == '__main__':
 #   print "IMPLIED VOL: {0:0.12f}".format(implied_volatility(7, 25, 20, 1, 0, 0.05, 0.25))
 
 #   HW 4 #6   
-    print "#1 VOL: {0:0.8f}".format(
-    implied_volatility(price_call=9.75, S=40, K=48, T=11/12, q=0.01, r=0.025,initial_guess=0.2,option_type='PUT'))
+#   print "#1 VOL: {0:0.8f}".format(
+#   implied_volatility(price_call=9.75, S=40, K=48, T=11/12, q=0.01, r=0.025,initial_guess=0.2,option_type='PUT'))
 
 
     #ef implied_volatility(price_call, S, K, T, q, r, tol):
@@ -227,18 +199,31 @@ if __name__ == '__main__':
 #   newtons_method(x0=50, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
 ################################################################
-#   HW5 #4
-#   coupon_rates = [0, 5, 5, 6]
-#   bond_prices = [97.5, 100, 102, 104]
-#   frequency = 2
-#   bootstrap_semi_annual(coupon_rates, bond_prices, frequency)
+# BOOTSTRAPPING    
+
+    r_0_05 = math.log(99.10/(100+0))/(-0.5)
+    print "r(0,0.5): {0:0.9f}".format(r_0_05)
+    r_0_1 = -1*math.log((99.50 - calculate_df(r_0_05, 0.5))/101)
+    print "r(0,1): {0:0.9f}".format(r_0_1)
     def f(x):
-        return 1.5*math.exp(-0.5*(0.5*0.015 + 0.5*x)) + 101.5*math.exp(-x) - 101.25
+        return 2.5*(calculate_df(r_0_05, 0.5) \
+        + calculate_df(r_0_1, 1) \
+        + calculate_df(2/3*r_0_1+1/3*x, 1.5) \
+        + calculate_df(1/3*r_0_1 + 2/3*x,2)) \
+        + 102.5*calculate_df(x, 2.5) \
+        - 104.75
 
     def f_deriv(x):
-        return 1.5*-0.5*0.5*math.exp(-0.5*(0.5*0.015 + 0.5*x)) - 101.5*math.exp(-x)
+        return 2.5*(-1/3*1.5*calculate_df(2/3*r_0_1+1/3*x, 1.5) \
+        - 2/3*2*calculate_df(1/3*r_0_1 + 2/3*x,2)) \
+        - 2.5* 102.5*calculate_df(x, 2.5) 
 
-    r_0_1 = newtons_method(x0=0.05, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0)
-    r_0_05 = 0.5*0.015 + 0.5*r_0_1
-    print r_0_1, r_0_05
+    r_0_25 = newtons_method(x0=0.05, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0)
+    r_0_15 = 2/3*r_0_1+1/3*r_0_25
+    r_0_2 = 1/3*r_0_1+2/3*r_0_25
+    print "r(0,0.5): {0:0.6f}".format(r_0_05)
+    print "r(0,1): {0:0.6f}".format(r_0_1)
+    print "r(0,1.5): {0:0.6f}".format(r_0_15)
+    print "r(0,2): {0:0.6f}".format(r_0_2)
+    print "r(0,2.5): {0:0.6f}".format(r_0_25)
     pass

@@ -76,6 +76,12 @@ def calculate_df(r, t):
     """
     return math.exp(-r*t)
 
+def lin_interpolator(a, b, x):
+    """
+    Creates linear interpolation equation and returns constants
+    """
+    return (b-x)/(b-a), (x-a)/(b-a)
+
 def bond_price(cash_flow_times, cash_flow_values, the_yield):
     """Bond price code on p69 
     """
