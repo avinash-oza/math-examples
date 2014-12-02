@@ -82,6 +82,12 @@ def lin_interpolator(a, b, x):
     """
     return (b-x)/(b-a), (x-a)/(b-a)
 
+def calculate_rate(i_tuple, r1, r2):
+    """
+    Calculates an interpolated rate
+    """
+    return i_tuple[0]*r1+i_tuple[1]*r2
+
 def bond_price(cash_flow_times, cash_flow_values, the_yield):
     """Bond price code on p69 
     """
