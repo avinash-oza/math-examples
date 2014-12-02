@@ -70,6 +70,12 @@ def calculate_flows(coupon, frequency, maturity):
     log.info("Flow times={times} \nFlow Values = {values}".format(times=flow_times, values=flow_values))
     return flow_times, flow_values
 
+def calculate_df(r, t):
+    """
+    Calculates discount factor for rate and time
+    """
+    return math.exp(-r*t)
+
 def bond_price(cash_flow_times, cash_flow_values, the_yield):
     """Bond price code on p69 
     """
