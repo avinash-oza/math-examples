@@ -36,6 +36,9 @@ def simpson_rule(a, b, f, n):
 def N(z):
     return normal_converger(0, z, N__x, math.pow(10,-12))
 
+def N_prime(z):
+    return math.exp(-0.5*z*z)/math.sqrt(2*math.pi)
+
 def normal_converger(a, b, f, tol):
     n = 2
     abs_diff = 999999999999999999999999999
