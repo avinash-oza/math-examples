@@ -9,7 +9,7 @@ import math
 import time
 import csv
 from simpson_rule import N, N__x
-from black_scholes import black_scholes, vega_black_scholes, d_1
+from black_scholes import black_scholes, vega_black_scholes, d_1, estimated_black_scholes
 
 def test_f(sigma):
     return math.pow(sigma, 4) - 5*sigma*sigma + 4 - 1/(1 + math.exp(math.pow(sigma,3)))
@@ -160,8 +160,8 @@ if __name__ == '__main__':
 #   print "IMPLIED VOL: {0:0.12f}".format(implied_volatility(7, 25, 20, 1, 0, 0.05, 0.25))
 
 #   HW 4 #6   
-#   print "IMPLIED VOL: {0:0.12f}".format(
-#   implied_volatility(price_call=2.5, S=30, K=30, T=1/2, q=0.01, r=0.03,initial_guess=0.5))
+    print "#1 VOL: {0:0.8f}".format(
+    implied_volatility(price_call=9.75, S=40, K=48, T=11/12, q=0.01, r=0.025,initial_guess=0.2,option_type='PUT'))
 
 
     #ef implied_volatility(price_call, S, K, T, q, r, tol):
@@ -213,18 +213,18 @@ if __name__ == '__main__':
 
 #   f = partial(f_hw5_num3,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
 #   f_deriv = partial(f_hw5_num3_deriv,t=0, S=30, T=3/12, sigma=0.30, q=0.01, r=0.025)
-    def p_bs(t,S,x,T,sigma,q,r,option_type=None):
-        return black_scholes(t,S,x,T,sigma,q,r,option_type=option_type) - x + S
+#   def p_bs(t,S,x,T,sigma,q,r,option_type=None):
+#       return black_scholes(t,S,x,T,sigma,q,r,option_type=option_type) - x + S
 
-    def delta(t,S,x,T,sigma,q,r,option_type=None):
-        d1 = d_1(t,S,x,T,sigma,q,r)    
-        d2 = d1 - sigma*math.sqrt(T-t)
-        return math.exp(-r*T)*(N(-d2) - math.exp(-0.5*d2*d2)/(sigma*math.sqrt(2*math.pi*T))) + (S*math.exp(-q*T-0.5*d1*d1))/(x*sigma*math.sqrt(2*math.pi*T)) - 1
+#   def delta(t,S,x,T,sigma,q,r,option_type=None):
+#       d1 = d_1(t,S,x,T,sigma,q,r)    
+#       d2 = d1 - sigma*math.sqrt(T-t)
+#       return math.exp(-r*T)*(N(-d2) - math.exp(-0.5*d2*d2)/(sigma*math.sqrt(2*math.pi*T))) + (S*math.exp(-q*T-0.5*d1*d1))/(x*sigma*math.sqrt(2*math.pi*T)) - 1
 
-    f = partial(p_bs, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
-    f_deriv = partial(delta, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
-    print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
-    newtons_method(x0=50, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
+#   f = partial(p_bs, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
+#   f_deriv = partial(delta, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
+#   print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
+#   newtons_method(x0=50, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
 ################################################################
 #   HW5 #4
@@ -232,4 +232,13 @@ if __name__ == '__main__':
 #   bond_prices = [97.5, 100, 102, 104]
 #   frequency = 2
 #   bootstrap_semi_annual(coupon_rates, bond_prices, frequency)
+    def f(x):
+        return 1.5*math.exp(-0.5*(0.5*0.015 + 0.5*x)) + 101.5*math.exp(-x) - 101.25
+
+    def f_deriv(x):
+        return 1.5*-0.5*0.5*math.exp(-0.5*(0.5*0.015 + 0.5*x)) - 101.5*math.exp(-x)
+
+    r_0_1 = newtons_method(x0=0.05, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0)
+    r_0_05 = 0.5*0.015 + 0.5*r_0_1
+    print r_0_1, r_0_05
     pass
