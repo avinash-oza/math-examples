@@ -8,7 +8,7 @@ log = logging.getLogger(__name__)
 import math
 import time
 import csv
-from simpson_rule import N, N__x
+from simpson_rule import N, N__x, N_prime
 from bond_pv import calculate_df, lin_interpolator, calculate_rate
 from black_scholes import black_scholes, vega_black_scholes, d_1, estimated_black_scholes
 
@@ -191,6 +191,8 @@ if __name__ == '__main__':
 #   def delta(t,S,x,T,sigma,q,r,option_type=None):
 #       d1 = d_1(t,S,x,T,sigma,q,r)    
 #       d2 = d1 - sigma*math.sqrt(T-t)
+#       return math.exp(-r*T)*(N(-d2) + x*N_prime(-d2)) - S*math.exp(-q*T)*N_prime(-d1) - 1
+#       Simplefied version of above
 #       return math.exp(-r*T)*(N(-d2) - math.exp(-0.5*d2*d2)/(sigma*math.sqrt(2*math.pi*T))) + (S*math.exp(-q*T-0.5*d1*d1))/(x*sigma*math.sqrt(2*math.pi*T)) - 1
 
 #   f = partial(p_bs, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
