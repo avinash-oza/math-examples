@@ -201,7 +201,7 @@ if __name__ == '__main__':
 #   newtons_method(x0=50, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
 ################################################################
-# BOOTSTRAPPING TEMPLATE 53yy from here to copy
+# BOOTSTRAPPING TEMPLATE 55yy from here to copy
 
     # Replace rates here with what is solved
 #   r_0_05 = math.log(99.10/(100+0))/(-0.5)
@@ -222,7 +222,8 @@ if __name__ == '__main__':
 #       # Replace coupon here
 #       coupon = 2.5
 #       # Replace coupon and times for the intervals we need
-#       return coupon*(\
+#       # REMOVE COMMENTED LINES BELOW
+#       return coupon*(0 \
 #         calculate_df(r_0_05, 0.5) \
 #       + calculate_df(r_0_1, 1) \
 #       + calculate_df(rate_func(i_tuple=r_0_15, r2=x), 1.5) \
@@ -233,10 +234,10 @@ if __name__ == '__main__':
 #   def f_deriv(x):
 #       # Replace coupon here
 #       coupon = 2.5
-
 #       # Replace proper rates into below with tuple indexes the same
 #       # This should only contain factors that contain x
-#       return coupon*(\
+#       # REMOVE COMMENTED LINES BELOW
+#       return coupon*(0 \
 #       - r_0_15[1]*1.5*calculate_df(rate_func(i_tuple=r_0_15,r2=x), 1.5) \
 #       - r_0_2[1]*2*calculate_df(rate_func(i_tuple=r_0_2, r2=x),2)) \
 #       - 2.5* (100+coupon)*calculate_df(x, 2.5) 
