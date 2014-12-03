@@ -148,12 +148,15 @@ def bond_yield(cash_flow_times, cash_flow_values, bond_market_price, tol=math.po
 
     x_new = x0
     x_old = x0 -1
+    count = 0
 
     while abs(x_new - x_old) > tol:
+        count +=1
+        log.info("Guess: {0:0.9f}".format(x_new))
         x_old = x_new
         x_new = x_old - (bond_price(cash_flow_times, cash_flow_values, x_old) - bond_market_price)/bond_derivative(cash_flow_times, cash_flow_values, x_old)
-        log.debug("Guess: {0:0.15f}".format(x_new))
 
+    log.info("Final Guess: {res:0.9f}. Iterations:{iterations}".format(res=x_new, iterations=count))
     return x_new
 
 if __name__ == '__main__':
@@ -229,7 +232,7 @@ if __name__ == '__main__':
 #   HW5 #2
     flow_times, flow_values = calculate_flows(coupon=7, frequency=2, maturity=29)
     def r_t(t):
-        return 0.02 + (1+2*t)/(100+100*t)
+        return 0.015 + (1+2*t)/(100+100*t)
     market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_t)
     print "Bond price {0:.9f}".format(market_bond_price)
     the_yield = bond_yield(flow_times, flow_values, market_bond_price)
