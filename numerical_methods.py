@@ -115,7 +115,7 @@ def implied_volatility(price_call, S, K, T, q, r, initial_guess, option_type='CA
     while abs(x_new - x_old) > tol:
         count += 1
         x_old = x_new
-        x_new = x_new - (estimated_black_scholes(0, S, K, T, x_new, q, r, option_type=option_type)- price_call)/vega_black_scholes(0, S, K, T, x_new, q, r)
+        x_new = x_new - (black_scholes(0, S, K, T, x_new, q, r, option_type=option_type)- price_call)/vega_black_scholes(0, S, K, T, x_new, q, r)
         log.info("Implied guess: {0:0.12f}".format(x_new))
     log.info("Option type: {option_type} Iterations: {iterations}".format(iterations=count, option_type=option_type))
     return x_new
