@@ -78,12 +78,14 @@ def newtons_method(x0, f, f_prime, tol_approx, price_call, tol_consec=math.pow(1
     """
     x_new = x0
     x_old = x0 - 1
+    count = 0
 
     while abs(f(x=x_new)) > tol_approx or abs(x_new- x_old) > tol_consec:
+        count += 1
         log.info("Guess: {0:0.9f}".format(x_new))
         x_old = x_new
         x_new = x_old - (f(x=x_old) - price_call)/f_prime(x=x_old)
-    log.info("Final Guess: {0:0.9f}".format(x_new))
+    log.info("Final Guess: {res:0.9f}. Iterations:{iterations}".format(res=x_new, iterations=count))
     return x_new
 
 def secant_method(x00, x0, f, tol_approx, tol_consec, price_call):
