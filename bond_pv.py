@@ -50,7 +50,7 @@ def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
         discount_factor = math.exp(-flow_time*zero_rate_function(flow_time))
-        log.info("discount_factor for t={0} : {1:.12}".format(12*flow_time, discount_factor))
+        log.info("discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor))
         price += cash_flow_values[i] * discount_factor
 
     return price
@@ -67,7 +67,7 @@ def calculate_flows(coupon, frequency, maturity):
     flow_times = [t/12 for t in flow_times]
     flow_values = [coupon/frequency for i in flow_times[:-1]] + [100+coupon/frequency]
 
-    log.info("Flow times={times} \nFlow Values = {values}".format(times=[12*f for f in flow_times], values=flow_values))
+    log.info("Flow times={times} \nFlow Values = {values}".format(times=flow_times, values=flow_values))
     return flow_times, flow_values
 
 def calculate_df(r, t):
@@ -227,9 +227,9 @@ if __name__ == '__main__':
 #   print "Bond duration {0:.9f} , convexity: {1:.9f}".format(bond_duration(flow_times, flow_values, the_yield), bond_convexity(flow_times, flow_values, the_yield))
 
 #   HW5 #2
-    flow_times, flow_values = calculate_flows(coupon=5, frequency=2, maturity=29)
+    flow_times, flow_values = calculate_flows(coupon=7, frequency=2, maturity=29)
     def r_t(t):
-        return 0.02 + (1+2*t*t)/(100+100*t*t)
+        return 0.02 + (1+2*t)/(100+100*t)
     market_bond_price = bond_price_zero_rate(flow_times, flow_values, r_t)
     print "Bond price {0:.9f}".format(market_bond_price)
     the_yield = bond_yield(flow_times, flow_values, market_bond_price)
