@@ -201,7 +201,115 @@ if __name__ == '__main__':
 #   newtons_method(x0=50, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
 ################################################################
-# BOOTSTRAPPING TEMPLATE 55yy from here to copy
+# BOOTSTRAPPING TEMPLATE COPY 1 55yy from here to copy
+
+    # Replace rates here with what is solved
+#   r_0_05 = math.log(99.10/(100+0))/(-0.5)
+#   r_0_1 = -1*math.log((99.50 - calculate_df(r_0_05, 0.5))/101)
+
+    # Define the interpolation function
+#   interp_func = partial(lin_interpolator, a=1, b=2.5)
+
+    # Calculate the rates we need over the interval
+#   r_0_15 = interp_func(x=1.5)
+#   r_0_2 = interp_func(x=2)
+#   r_0_25 = interp_func(x=2.5)
+
+    # Define the function to calculate our rates with the starting rate as the last rate we know
+#   rate_func = partial(calculate_rate, r1=r_0_1)
+
+#   def f(x):
+#       # Replace coupon here
+#       coupon = 2.5
+#       # Replace coupon and times for the intervals we need
+#       # REMOVE COMMENTED LINES BELOW
+#       return coupon*(0 \
+#         calculate_df(r_0_05, 0.5) \
+#       + calculate_df(r_0_1, 1) \
+#       + calculate_df(rate_func(i_tuple=r_0_15, r2=x), 1.5) \
+#       + calculate_df(rate_func(i_tuple=r_0_2, r2=x),2)) \
+#       + (100+coupon)*calculate_df(x, 2.5) \
+#       - 104.75 # Replace price of final leg
+
+#   def f_deriv(x):
+#       # Replace coupon here
+#       coupon = 2.5
+#       # Replace proper rates into below with tuple indexes the same
+#       # This should only contain factors that contain x
+#       # REMOVE COMMENTED LINES BELOW
+#       return coupon*(0 \
+#       - r_0_15[1]*1.5*calculate_df(rate_func(i_tuple=r_0_15,r2=x), 1.5) \
+#       - r_0_2[1]*2*calculate_df(rate_func(i_tuple=r_0_2, r2=x),2)) \
+#       - 2.5* (100+coupon)*calculate_df(x, 2.5) 
+
+#   r_0_25 = newtons_method(x0=0.05, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0)
+#   # Change this to the starting and final rate via newton's method
+#   num_rate_func = partial(calculate_rate, r1=r_0_1, r2=r_0_25)
+
+#   r_0_15 = num_rate_func(i_tuple=r_0_15) 
+#   r_0_2 = num_rate_func(i_tuple=r_0_2) 
+
+#   print "r(0,0.5): {0:0.6f}".format(r_0_05)
+#   print "r(0,1): {0:0.6f}".format(r_0_1)
+#   print "r(0,1.5): {0:0.6f}".format(r_0_15)
+#   print "r(0,2): {0:0.6f}".format(r_0_2)
+#   print "r(0,2.5): {0:0.6f}".format(r_0_25)
+######################################################################
+# BOOTSTRAPPING TEMPLATE COPY 2 55yy from here to copy
+
+    # Replace rates here with what is solved
+#   r_0_05 = math.log(99.10/(100+0))/(-0.5)
+#   r_0_1 = -1*math.log((99.50 - calculate_df(r_0_05, 0.5))/101)
+
+    # Define the interpolation function
+#   interp_func = partial(lin_interpolator, a=1, b=2.5)
+
+    # Calculate the rates we need over the interval
+#   r_0_15 = interp_func(x=1.5)
+#   r_0_2 = interp_func(x=2)
+#   r_0_25 = interp_func(x=2.5)
+
+    # Define the function to calculate our rates with the starting rate as the last rate we know
+#   rate_func = partial(calculate_rate, r1=r_0_1)
+
+#   def f(x):
+#       # Replace coupon here
+#       coupon = 2.5
+#       # Replace coupon and times for the intervals we need
+#       # REMOVE COMMENTED LINES BELOW
+#       return coupon*(0 \
+#         calculate_df(r_0_05, 0.5) \
+#       + calculate_df(r_0_1, 1) \
+#       + calculate_df(rate_func(i_tuple=r_0_15, r2=x), 1.5) \
+#       + calculate_df(rate_func(i_tuple=r_0_2, r2=x),2)) \
+#       + (100+coupon)*calculate_df(x, 2.5) \
+#       - 104.75 # Replace price of final leg
+
+#   def f_deriv(x):
+#       # Replace coupon here
+#       coupon = 2.5
+#       # Replace proper rates into below with tuple indexes the same
+#       # This should only contain factors that contain x
+#       # REMOVE COMMENTED LINES BELOW
+#       return coupon*(0 \
+#       - r_0_15[1]*1.5*calculate_df(rate_func(i_tuple=r_0_15,r2=x), 1.5) \
+#       - r_0_2[1]*2*calculate_df(rate_func(i_tuple=r_0_2, r2=x),2)) \
+#       - 2.5* (100+coupon)*calculate_df(x, 2.5) 
+
+#   r_0_25 = newtons_method(x0=0.05, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0)
+#   # Change this to the starting and final rate via newton's method
+#   num_rate_func = partial(calculate_rate, r1=r_0_1, r2=r_0_25)
+
+#   r_0_15 = num_rate_func(i_tuple=r_0_15) 
+#   r_0_2 = num_rate_func(i_tuple=r_0_2) 
+
+#   print "r(0,0.5): {0:0.6f}".format(r_0_05)
+#   print "r(0,1): {0:0.6f}".format(r_0_1)
+#   print "r(0,1.5): {0:0.6f}".format(r_0_15)
+#   print "r(0,2): {0:0.6f}".format(r_0_2)
+#   print "r(0,2.5): {0:0.6f}".format(r_0_25)
+######################################################################
+# BOOTSTRAPPING TEMPLATE COPY 3 55yy from here to copy
 
     # Replace rates here with what is solved
 #   r_0_05 = math.log(99.10/(100+0))/(-0.5)
