@@ -199,9 +199,15 @@ if __name__ == '__main__':
 #       return math.exp(-r*T)*(N(-d2) + x*N_prime(-d2)) - S*math.exp(-q*T)*N_prime(-d1) - 1
 #       Simplefied version of above
 #       return math.exp(-r*T)*(N(-d2) - math.exp(-0.5*d2*d2)/(sigma*math.sqrt(2*math.pi*T))) + (S*math.exp(-q*T-0.5*d1*d1))/(x*sigma*math.sqrt(2*math.pi*T)) - 1
-
-#   f = partial(p_bs, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
-#   f_deriv = partial(delta, t=0,S=50, T=6/12, sigma=0.30, q=0.01,r=0.03, option_type='PUT')
+    params = {"t": 0,
+    "S": 50,
+    "T":6/12,
+    "sigma":0.3,
+    "q": 0.01,
+    "r":0.03,
+    "option_type": 'PUT'}
+#   f = partial(p_bs, **params)
+#   f_deriv = partial(delta, **params)
 #   print "STRIKE VIA NEWTONs METHOD: {0:0.12f}".format(
 #   newtons_method(x0=50, f=f, f_prime=f_deriv, tol_approx=math.pow(10, -6),price_call=0))    
 
