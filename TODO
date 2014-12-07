@@ -1,0 +1,7 @@
+- Refactor bond code to use discount_factor func
+- Put d2 into a function
+- Move code into classes
+
+
+Tests
+- Add tests for bond_pv
