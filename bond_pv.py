@@ -34,7 +34,7 @@ def bond_price_inst_rate(cash_flow_times, cash_flow_values, inst_rate_function, 
         flow_time = cash_flow_times[i]
         inst_rate = converger(0, flow_time, inst_rate_function, tol_values[i], simpson_rule)
 
-        discount_factor = math.exp(-inst_rate)
+        discount_factor = calculate_df(inst_rate, 1)
         log.debug("discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor))
         price += cash_flow_values[i] * discount_factor
 
@@ -49,7 +49,7 @@ def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
 
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
-        discount_factor = math.exp(-flow_time*zero_rate_function(flow_time))
+        discount_factor = calculate_df(zero_rate_function(flow_time), flow_time)
         log.info("discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor))
         price += cash_flow_values[i] * discount_factor
 
@@ -107,7 +107,7 @@ def bond_duration(cash_flow_times, cash_flow_values, the_yield, dollar_type=Fals
 
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
-        discount_factor = math.exp(-flow_time*the_yield)
+        discount_factor = calculate_df(the_yield, flow_time)
         duration += flow_time*cash_flow_values[i]*discount_factor
         
     return duration if dollar_type else duration/price
@@ -120,7 +120,7 @@ def bond_convexity(cash_flow_times, cash_flow_values, the_yield, dollar_type=Fal
 
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
-        discount_factor = math.exp(-flow_time*the_yield)
+        discount_factor = calculate_df(the_yield, flow_time)
         convexity += flow_time*flow_time*cash_flow_values[i]*discount_factor
 
     return convexity if dollar_type else convexity/price
@@ -135,7 +135,7 @@ def bond_derivative(cash_flow_times, cash_flow_values, the_yield):
 
     for i in xrange(len(cash_flow_times)):
         flow_time = cash_flow_times[i]
-        discount_factor = math.exp(-flow_time*the_yield)
+        discount_factor = calculate_df(the_yield, flow_time)
         f_prime += flow_time * cash_flow_values[i] * discount_factor
 
     return -1 * f_prime
