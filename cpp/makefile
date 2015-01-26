@@ -8,6 +8,8 @@ ifeq (${DEBUG},TRUE)
 else
 	g++ bisect.o -o bisect
 endif
+bond_pv: bond_pv.h bond_pv.cpp
+	g++ bond_pv.cpp -o bond_pv
 bisect.o: bisect.cpp bisect.h
 	g++ -I . -c bisect.cpp
 tests: 
