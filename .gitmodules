@@ -1,3 +1,4 @@
 [submodule "externals/google-test"]
 	path = externals/google-test
 	url = git://github.com/voormedia/google-test.git
+        ignore = dirty
