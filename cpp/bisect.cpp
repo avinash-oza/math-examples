@@ -3,6 +3,7 @@
 //#include <math.h>
 #include <unistd.h>
 #include <cmath>
+#include "bisect.h"
 
 double f_chpt5(double x)
 {
