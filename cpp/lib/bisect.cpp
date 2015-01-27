@@ -37,8 +37,3 @@ double BisectionMethod(double a, double b, double tol_int, double tol_approx)
     return Xm;
 }
 
-int main() {
-//    std::cout << f_chpt5(-2.0) << std::endl;
-//    std::cout << f_chpt5(3.0) << std::endl;
-    std::cout << BisectionMethod(-2.0,3.0,std::pow(10.0,-6.0),std::pow(10.0, -9.0)) << std::endl;
-}

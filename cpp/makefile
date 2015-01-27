@@ -1,22 +1,19 @@
 DEBUG = TRUE
 DEBUG_OPTIONS = -g
-BISECT_COMMANDS = -I . -c bisect.cpp
+LIBS = lib/
+INCLUDES = -I . -I ${LIBS}
+SOURCES= ${wildcard *.cpp}
+OBJECTS = ${SOURCES:.cpp=.o}
+EXEC = main_program
 
-all: bisect.o
-ifeq (${DEBUG},TRUE)
-	g++ bisect.o ${DEBUG_OPTIONS} -o bisect
-else
-	g++ bisect.o -o bisect
-endif
-bond_pv: bond_pv.h bond_pv.cpp
-	g++ bond_pv.cpp -o bond_pv
-bisect.o: bisect.cpp bisect.h
-	g++ -I . -c bisect.cpp
+all: ${OBJECTS}
+	cd lib/ && ${MAKE}
+	g++ ${INCLUDES} -c main.cpp -o main.o
+	g++ main.o ${LIBS}/*.o  -o ${EXEC}
 tests: 
 	cd test/ && $(MAKE)
+
 clean:
-	rm -Rf *.o
-	rm -Rf bisect
-    
-    
-    
+	rm -f ${OBJECTS} ${EXEC}
+	cd lib/ && ${MAKE} clean
+	cd test/ && $(MAKE) clean

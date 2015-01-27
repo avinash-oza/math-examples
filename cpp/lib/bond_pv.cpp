@@ -5,7 +5,3 @@ double calculate_df(double r, double t) {
     return result;
 }
 
-int main() {
-    double r = calculate_df(0.5,0.7);
-    std::cout << r << std::endl;
-}
