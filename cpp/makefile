@@ -1,5 +1,4 @@
 DEBUG = TRUE
-DEBUG_OPTIONS = -g
 LIBS = lib/
 INCLUDES = -I . -I ${LIBS}
 SOURCES= ${wildcard *.cpp}
@@ -8,8 +7,8 @@ EXEC = main_program
 
 all: ${OBJECTS}
 	cd lib/ && ${MAKE}
-	g++ ${INCLUDES} -c main.cpp -o main.o
-	g++ main.o ${LIBS}/*.o  -o ${EXEC}
+	g++ ${INCLUDES} -g -c main.cpp -o main.o
+	g++ main.o ${LIBS}/*.o -g  -o ${EXEC}
 tests: 
 	cd test/ && $(MAKE)
 

@@ -7,6 +7,6 @@ OBJECTS = ${SOURCES:.cpp=.o}
 all: ${OBJECTS}
 
 %.o: %.cpp
-	g++ ${INCLUDES} -c $< -o $@
+	g++ ${INCLUDES} -g -c $< -o $@
 clean:
 	rm -f ${OBJECTS} 
