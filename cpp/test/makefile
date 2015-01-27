@@ -8,14 +8,17 @@ SOURCES= ${wildcard *.cpp}
 OBJECTS = ${SOURCES:.cpp=.o}
 EXEC = test_runner
 
-all: ${OBJECTS}
+all: gtest-all.o ${OBJECTS}
 	g++ -I ${GTEST_DIR}/include -I ${GTEST_DIR} -pthread -c main.cpp -o main.o
 	cd ../${LIB} && ${MAKE}
-	g++ *.o ../${LIB}/*.o ${GTEST_DIR}libgtest.a -pthread -o test_runner
+	g++ *.o ../${LIB}/*.o ${GTEST_DIR}gtest-all.o -pthread -o test_runner
 	./${EXEC}
 
 %.o: %.cpp
 	g++ ${TEST_INCLUDES} ${TEST_OPTIONS} -c $< -o $@
+
+gtest-all.o:
+	cd ${GTEST_DIR} && ${MAKE} gtest-all.o
 
 google-test:
 	cd ${GTEST_DIR} && \
