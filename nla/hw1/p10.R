@@ -1,8 +1,14 @@
 source("nla_funcs.R")
-#q 11
-transform(indices.close_jul26.aug9_2012, log_diff=c(NA,(diff(log(abs(Dow.Jones))))))
-log_returns <- diff(log(abs(indices.close_jul26.aug9_2012$Dow.Jones)))
-log_returns <- cbind(log_returns,diff(log(abs(indices.close_jul26.aug9_2012$NASDAQ))))
-log_returns <- cbind(log_returns,diff(log(abs(indices.close_jul26.aug9_2012$S.P.500))))
 
-a <- covar_calc(log_returns)
+omega <- matrix(c(1,-0.25,.15,-0.05,-0.3,
+                  -0.25,1,-0.10,-0.25,0.10,
+                  0.15,-0.1,1,0.2,0.05,
+                  -0.05,-0.25,.20,1,0.10,
+                  -0.3,0.10,0.05,0.10,1),nrow = 5,ncol = 5)
+#Calculate covariance matrix
+corr_vector <- c(0.25,0.5,1,2,4)
+covar_m <- covar_calc_corr(corr_vector,omega)
+
+#Part ii
+corr_vector <- c(4, 2,1, 0.5,0.25)
+x <- correlation_calc(corr_vector,omega)
