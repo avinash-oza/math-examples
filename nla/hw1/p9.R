@@ -7,5 +7,6 @@ omega <- matrix(c(1,-0.525,1.375,-0.075,-0.75,
                   -0.75,-0.675,-1.875,0.3,0),nrow = 5,ncol = 5)
 #Calculate covariance matrix
 corr_vector = sqrt(c(1,2.25,6.25,0.25,9))
-correlation_calc(corr_vector, omega)
+a <-correlation_calc(corr_vector, omega)
 
+print_latex(a,2)
