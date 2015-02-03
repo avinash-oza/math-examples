@@ -4,13 +4,12 @@
 \usepackage[landscape]{geometry}
 
 \begin{document}
-\section*{Problem 12i}
+\section*{Problem 12}
 %%%%%%%%%%%%%%%%%%%%%VARIANCE Daily Percent returns%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Daily Percent Returns}
 \begin{equation*}
 \begin{medsize}
-% latex table generated in R 3.1.1 by xtable 1.7-4 package
-% Sun Feb  1 22:20:51 2015
-\Sigma_X = 
+\Sigma_{X_{percent}} = 
 % latex table generated in R 3.1.1 by xtable 1.7-4 package
 % Sun Feb  1 22:29:54 2015
 \begin{bmatrix}{}
@@ -30,18 +29,19 @@
 %%%%%%%%%%%%%%%%%%%%%CORRELATION Daily Percent returns%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{equation*}
 		\begin{medsize}
-\Omega_X = % latex table generated in R 3.1.1 by xtable 1.7-4 package
-% Sun Feb  1 22:31:42 2015
+\Omega_{X_{percent}} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:39:44 2015
 \begin{bmatrix}{}
-  1.000 & 0.879 & 0.829 & 0.598 & 0.912 & 0.944 & 0.921 & 0.697 & 0.518 \\ 
-  0.879 & 1.000 & 0.802 & 0.744 & 0.943 & 0.963 & 0.969 & 0.680 & 0.523 \\ 
-  0.829 & 0.802 & 1.000 & 0.581 & 0.814 & 0.853 & 0.823 & 0.506 & 0.468 \\ 
-  0.598 & 0.744 & 0.581 & 1.000 & 0.711 & 0.717 & 0.728 & 0.507 & 0.432 \\ 
-  0.912 & 0.943 & 0.814 & 0.711 & 1.000 & 0.982 & 0.974 & 0.789 & 0.565 \\ 
-  0.944 & 0.963 & 0.853 & 0.717 & 0.982 & 1.000 & 0.993 & 0.726 & 0.529 \\ 
-  0.921 & 0.969 & 0.823 & 0.728 & 0.974 & 0.993 & 1.000 & 0.713 & 0.514 \\ 
-  0.697 & 0.680 & 0.506 & 0.507 & 0.789 & 0.726 & 0.713 & 1.000 & 0.466 \\ 
-  0.518 & 0.523 & 0.468 & 0.432 & 0.565 & 0.529 & 0.514 & 0.466 & 1.000 \\ 
+& CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\
+  CCMP.Index & 1.000 & 0.879 & 0.829 & 0.598 & 0.912 & 0.944 & 0.921 & 0.697 & 0.518 \\ 
+  INDU.Index & 0.879 & 1.000 & 0.802 & 0.744 & 0.943 & 0.963 & 0.969 & 0.680 & 0.523 \\ 
+  TRAN.Index & 0.829 & 0.802 & 1.000 & 0.581 & 0.814 & 0.853 & 0.823 & 0.506 & 0.468 \\ 
+  UTIL.Index & 0.598 & 0.744 & 0.581 & 1.000 & 0.711 & 0.717 & 0.728 & 0.507 & 0.432 \\ 
+  NYA.Index & 0.912 & 0.943 & 0.814 & 0.711 & 1.000 & 0.982 & 0.974 & 0.789 & 0.565 \\ 
+  SPX.Index & 0.944 & 0.963 & 0.853 & 0.717 & 0.982 & 1.000 & 0.993 & 0.726 & 0.529 \\ 
+  OEX.Index & 0.921 & 0.969 & 0.823 & 0.728 & 0.974 & 0.993 & 1.000 & 0.713 & 0.514 \\ 
+  XAX.Index & 0.697 & 0.680 & 0.506 & 0.507 & 0.789 & 0.726 & 0.713 & 1.000 & 0.466 \\ 
+  OMX.Index & 0.518 & 0.523 & 0.468 & 0.432 & 0.565 & 0.529 & 0.514 & 0.466 & 1.000 \\ 
   \end{bmatrix}
 \end{medsize}
 \end{equation*}
@@ -52,7 +52,7 @@
 \begin{medsize}
 % latex table generated in R 3.1.1 by xtable 1.7-4 package
 % Sun Feb  1 22:35:08 2015
-\Sigma_X=\begin{bmatrix}{}
+\Sigma_{X_{log}}=\begin{bmatrix}{}
   & CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
  CCMP.Index & 100.400 & 67.270 & 97.249 & 40.152 & 83.128 & 79.212 & 74.627 & 71.384 & 54.597 \\ 
   INDU.Index & 67.270 & 58.323 & 71.573 & 38.091 & 65.533 & 61.576 & 59.820 & 53.059 & 41.992 \\ 
@@ -69,21 +69,192 @@
 %%%%%%%%%%%%%%%%%%%%%CORR Daily Log returns%%%%%%%%%%%%%%%%%%%%%%%
 \begin{equation*}
 \begin{medsize}
-% latex table generated in R 3.1.1 by xtable 1.7-4 package
-% Sun Feb  1 22:35:08 2015
-\Omega_X=% latex table generated in R 3.1.1 by xtable 1.7-4 package
-% Sun Feb  1 22:44:21 2015
+\Omega_{X_{log}}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:42:55 2015
 \begin{bmatrix}{}
-  1.000 & 0.879 & 0.830 & 0.598 & 0.912 & 0.945 & 0.921 & 0.698 & 0.517 \\ 
-  0.879 & 1.000 & 0.802 & 0.744 & 0.943 & 0.963 & 0.969 & 0.681 & 0.522 \\ 
-  0.830 & 0.802 & 1.000 & 0.580 & 0.814 & 0.853 & 0.823 & 0.506 & 0.467 \\ 
-  0.598 & 0.744 & 0.580 & 1.000 & 0.711 & 0.717 & 0.728 & 0.508 & 0.433 \\ 
-  0.912 & 0.943 & 0.814 & 0.711 & 1.000 & 0.982 & 0.974 & 0.790 & 0.564 \\ 
-  0.945 & 0.963 & 0.853 & 0.717 & 0.982 & 1.000 & 0.993 & 0.726 & 0.528 \\ 
-  0.921 & 0.969 & 0.823 & 0.728 & 0.974 & 0.993 & 1.000 & 0.713 & 0.512 \\ 
-  0.698 & 0.681 & 0.506 & 0.508 & 0.790 & 0.726 & 0.713 & 1.000 & 0.465 \\ 
-  0.517 & 0.522 & 0.467 & 0.433 & 0.564 & 0.528 & 0.512 & 0.465 & 1.000 \\ 
+& CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+  CCMP.Index & 1.000 & 0.879 & 0.830 & 0.598 & 0.912 & 0.945 & 0.921 & 0.698 & 0.517 \\ 
+  INDU.Index & 0.879 & 1.000 & 0.802 & 0.744 & 0.943 & 0.963 & 0.969 & 0.681 & 0.522 \\ 
+  TRAN.Index & 0.830 & 0.802 & 1.000 & 0.580 & 0.814 & 0.853 & 0.823 & 0.506 & 0.467 \\ 
+  UTIL.Index & 0.598 & 0.744 & 0.580 & 1.000 & 0.711 & 0.717 & 0.728 & 0.508 & 0.433 \\ 
+  NYA.Index & 0.912 & 0.943 & 0.814 & 0.711 & 1.000 & 0.982 & 0.974 & 0.790 & 0.564 \\ 
+  SPX.Index & 0.945 & 0.963 & 0.853 & 0.717 & 0.982 & 1.000 & 0.993 & 0.726 & 0.528 \\ 
+  OEX.Index & 0.921 & 0.969 & 0.823 & 0.728 & 0.974 & 0.993 & 1.000 & 0.713 & 0.512 \\ 
+  XAX.Index & 0.698 & 0.681 & 0.506 & 0.508 & 0.790 & 0.726 & 0.713 & 1.000 & 0.465 \\ 
+  OMX.Index & 0.517 & 0.522 & 0.467 & 0.433 & 0.564 & 0.528 & 0.512 & 0.465 & 1.000 \\ 
   \end{bmatrix}
 \end{medsize}
 \end{equation*}
+From comparing \(\Sigma_{X_{percent}}\) to \(\Sigma_{X_{log}}\), we see that \(abs(\Sigma_{X_{percent}}(CCMP.Index,CCMP.Index) - \Sigma_{X_{log}}(CCMP.Index,CCMP.Index) = 0.364 \). The other elements of the \(abs(\Sigma_{X_{percent}}-\Sigma_{X_{log}})\) also have a small difference. Similarly, we see that for most correlation values  \(abs(\Omega_{X_{percent}}- \Omega_{X_{log}}) < 0.002 \) . This tells us that for high resolution data, the covariance/correlation matrix calculated from log/daily returns give very close values.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%Weekly Percent Returns%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Weekly Percent Returns}
+\begin{equation*}
+\begin{medsize}
+\Sigma_{X_{percent}}=
+\begin{bmatrix}{}
+  & CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+ CCMP.Index & 472.156 & 311.098 & 405.204 & 174.564 & 400.558 & 369.005 & 354.473 & 417.483 & 379.165 \\ 
+  INDU.Index & 311.098 & 271.755 & 298.043 & 155.098 & 307.855 & 282.528 & 277.279 & 288.047 & 272.618 \\ 
+  TRAN.Index & 405.204 & 298.043 & 549.629 & 184.198 & 354.593 & 342.675 & 318.596 & 292.357 & 323.415 \\ 
+  UTIL.Index & 174.564 & 155.098 & 184.198 & 184.696 & 179.838 & 169.515 & 162.684 & 157.188 & 164.829 \\ 
+  NYA.Index & 400.558 & 307.855 & 354.593 & 179.838 & 404.847 & 352.153 & 341.254 & 420.450 & 364.174 \\ 
+  SPX.Index & 369.005 & 282.528 & 342.675 & 169.515 & 352.153 & 320.149 & 310.003 & 345.018 & 312.412 \\ 
+  OEX.Index & 354.473 & 277.279 & 318.596 & 162.684 & 341.254 & 310.003 & 304.292 & 333.379 & 294.753 \\ 
+  XAX.Index & 417.483 & 288.047 & 292.357 & 157.188 & 420.450 & 345.018 & 333.379 & 645.487 & 357.972 \\ 
+  OMX.Index & 379.165 & 272.618 & 323.415 & 164.829 & 364.174 & 312.412 & 294.753 & 357.972 & 570.861 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+\begin{equation*}
+\begin{medsize}
+\Omega_{X_{percent}} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:44:00 2015
+\begin{bmatrix}{}
+& CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+  CCMP.Index & 1.000 & 0.868 & 0.795 & 0.591 & 0.916 & 0.949 & 0.935 & 0.756 & 0.730 \\ 
+  INDU.Index & 0.868 & 1.000 & 0.771 & 0.692 & 0.928 & 0.958 & 0.964 & 0.688 & 0.692 \\ 
+  TRAN.Index & 0.795 & 0.771 & 1.000 & 0.578 & 0.752 & 0.817 & 0.779 & 0.491 & 0.577 \\ 
+  UTIL.Index & 0.591 & 0.692 & 0.578 & 1.000 & 0.658 & 0.697 & 0.686 & 0.455 & 0.508 \\ 
+  NYA.Index & 0.916 & 0.928 & 0.752 & 0.658 & 1.000 & 0.978 & 0.972 & 0.822 & 0.758 \\ 
+  SPX.Index & 0.949 & 0.958 & 0.817 & 0.697 & 0.978 & 1.000 & 0.993 & 0.759 & 0.731 \\ 
+  OEX.Index & 0.935 & 0.964 & 0.779 & 0.686 & 0.972 & 0.993 & 1.000 & 0.752 & 0.707 \\ 
+  XAX.Index & 0.756 & 0.688 & 0.491 & 0.455 & 0.822 & 0.759 & 0.752 & 1.000 & 0.590 \\ 
+  OMX.Index & 0.730 & 0.692 & 0.577 & 0.508 & 0.758 & 0.731 & 0.707 & 0.590 & 1.000 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%Weekly Log Returns%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Weekly Log Returns}
+\begin{equation*}
+\begin{medsize}
+\Sigma_{X_{log}}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:21:17 2015
+\begin{bmatrix}{}
+  & CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+ CCMP.Index & 469.054 & 308.971 & 406.473 & 173.490 & 397.631 & 366.859 & 352.062 & 412.186 & 375.063 \\ 
+  INDU.Index & 308.971 & 269.846 & 297.680 & 154.142 & 305.898 & 280.934 & 275.516 & 284.464 & 269.219 \\ 
+  TRAN.Index & 406.473 & 297.680 & 552.808 & 184.453 & 354.650 & 343.462 & 318.826 & 290.193 & 321.019 \\ 
+  UTIL.Index & 173.490 & 154.142 & 184.453 & 183.750 & 178.502 & 168.686 & 161.666 & 154.738 & 162.310 \\ 
+  NYA.Index & 397.631 & 305.898 & 354.650 & 178.502 & 402.235 & 350.156 & 339.091 & 415.894 & 360.272 \\ 
+  SPX.Index & 366.859 & 280.934 & 343.462 & 168.686 & 350.156 & 318.703 & 308.319 & 340.815 & 308.794 \\ 
+  OEX.Index & 352.062 & 275.516 & 318.826 & 161.666 & 339.091 & 308.319 & 302.411 & 329.203 & 290.860 \\ 
+  XAX.Index & 412.186 & 284.464 & 290.193 & 154.738 & 415.894 & 340.815 & 329.203 & 639.595 & 353.580 \\ 
+  OMX.Index & 375.063 & 269.219 & 321.019 & 162.310 & 360.272 & 308.794 & 290.860 & 353.580 & 570.729 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+
+\begin{equation*}
+\begin{medsize}
+\Omega_{X_{log}}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:44:51 2015
+\begin{bmatrix}{}
+& CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+  CCMP.Index & 1.000 & 0.868 & 0.798 & 0.591 & 0.915 & 0.949 & 0.935 & 0.753 & 0.725 \\ 
+  INDU.Index & 0.868 & 1.000 & 0.771 & 0.692 & 0.928 & 0.958 & 0.964 & 0.685 & 0.686 \\ 
+  TRAN.Index & 0.798 & 0.771 & 1.000 & 0.579 & 0.752 & 0.818 & 0.780 & 0.488 & 0.572 \\ 
+  UTIL.Index & 0.591 & 0.692 & 0.579 & 1.000 & 0.657 & 0.697 & 0.686 & 0.451 & 0.501 \\ 
+  NYA.Index & 0.915 & 0.928 & 0.752 & 0.657 & 1.000 & 0.978 & 0.972 & 0.820 & 0.752 \\ 
+  SPX.Index & 0.949 & 0.958 & 0.818 & 0.697 & 0.978 & 1.000 & 0.993 & 0.755 & 0.724 \\ 
+  OEX.Index & 0.935 & 0.964 & 0.780 & 0.686 & 0.972 & 0.993 & 1.000 & 0.749 & 0.700 \\ 
+  XAX.Index & 0.753 & 0.685 & 0.488 & 0.451 & 0.820 & 0.755 & 0.749 & 1.000 & 0.585 \\ 
+  OMX.Index & 0.725 & 0.686 & 0.572 & 0.501 & 0.752 & 0.724 & 0.700 & 0.585 & 1.000 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+From comparing \(\Sigma_{X_{percent}}\) to \(\Sigma_{X_{log}}\) for the weekly data, we see that \(abs(\Sigma_{X_{percent}}(CCMP.Index,CCMP.Index) - \Sigma_{X_{log}}(CCMP.Index,CCMP.Index)) = 3.102 \). Similarly for the correlation values, we can see that \(abs(\Omega_{X_{percent}}- \Omega_{X_{log}}) < 0.02 \) . We see that the difference between \(\Sigma_{X_{percent}}\) and \(\Sigma_{X_{log}}\) increasing. This is also true for \(\Omega_{X_{percent}}\) and \(\Omega_{X_{log}}\).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%Monthly Percent Returns%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Monthly Percent Returns}
+\begin{equation*}
+\begin{medsize}
+\Sigma_{X_{percent}}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 21:15:52 2015
+\begin{bmatrix}{}
+  & CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+ CCMP.Index & 522.613 & 652.471 & 767.191 & 176.086 & 582.136 & 525.557 & 545.466 & 56.299 & 63.273 \\ 
+  INDU.Index & 652.471 & 820.539 & 920.218 & 200.726 & 741.528 & 662.624 & 687.928 & 145.713 & 50.649 \\ 
+  TRAN.Index & 767.191 & 920.218 & 2403.184 & 249.390 & 737.085 & 732.447 & 685.305 & -392.243 & 477.142 \\ 
+  UTIL.Index & 176.086 & 200.726 & 249.390 & 142.265 & 147.259 & 151.609 & 166.419 & -196.005 & 78.835 \\ 
+  NYA.Index & 582.136 & 741.528 & 737.085 & 147.259 & 692.667 & 609.023 & 636.799 & 191.163 & -32.883 \\ 
+  SPX.Index & 525.557 & 662.624 & 732.447 & 151.609 & 609.023 & 543.765 & 567.473 & 74.493 & -1.632 \\ 
+  OEX.Index & 545.466 & 687.928 & 685.305 & 166.419 & 636.799 & 567.473 & 600.143 & 50.947 & -50.131 \\ 
+  XAX.Index & 56.299 & 145.713 & -392.243 & -196.005 & 191.163 & 74.493 & 50.947 & 1484.898 & -16.839 \\ 
+  OMX.Index & 63.273 & 50.649 & 477.142 & 78.835 & -32.883 & -1.632 & -50.131 & -16.839 & 582.484 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+
+\begin{equation*}
+\begin{medsize}
+\Omega_{X_{percent}}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:45:30 2015
+\begin{bmatrix}{}
+& CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+  CCMP.Index & 1.000 & 0.996 & 0.685 & 0.646 & 0.968 & 0.986 & 0.974 & 0.064 & 0.115 \\ 
+  INDU.Index & 0.996 & 1.000 & 0.655 & 0.587 & 0.984 & 0.992 & 0.980 & 0.132 & 0.073 \\ 
+  TRAN.Index & 0.685 & 0.655 & 1.000 & 0.427 & 0.571 & 0.641 & 0.571 & -0.208 & 0.403 \\ 
+  UTIL.Index & 0.646 & 0.587 & 0.427 & 1.000 & 0.469 & 0.545 & 0.570 & -0.426 & 0.274 \\ 
+  NYA.Index & 0.968 & 0.984 & 0.571 & 0.469 & 1.000 & 0.992 & 0.988 & 0.188 & -0.052 \\ 
+  SPX.Index & 0.986 & 0.992 & 0.641 & 0.545 & 0.992 & 1.000 & 0.993 & 0.083 & -0.003 \\ 
+  OEX.Index & 0.974 & 0.980 & 0.571 & 0.570 & 0.988 & 0.993 & 1.000 & 0.054 & -0.085 \\ 
+  XAX.Index & 0.064 & 0.132 & -0.208 & -0.426 & 0.188 & 0.083 & 0.054 & 1.000 & -0.018 \\ 
+  OMX.Index & 0.115 & 0.073 & 0.403 & 0.274 & -0.052 & -0.003 & -0.085 & -0.018 & 1.000 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+%%%%%%%%%%%%%%%%%%%%Monthly Log Returns%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Monthly Log Returns}
+
+\begin{equation*}
+\begin{medsize}
+\Sigma_{X_{log}}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:30:02 2015
+\begin{bmatrix}{}
+  & CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+ CCMP.Index & 526.530 & 657.246 & 767.206 & 173.003 & 590.047 & 530.131 & 551.248 & 70.067 & 59.119 \\ 
+  INDU.Index & 657.246 & 826.617 & 920.074 & 196.427 & 751.563 & 668.259 & 695.011 & 162.352 & 44.837 \\ 
+  TRAN.Index & 767.206 & 920.074 & 2319.890 & 249.781 & 743.912 & 733.515 & 692.423 & -355.846 & 457.480 \\ 
+  UTIL.Index & 173.003 & 196.427 & 249.781 & 138.707 & 145.146 & 149.207 & 163.998 & -185.547 & 77.550 \\ 
+  NYA.Index & 590.047 & 751.563 & 743.912 & 145.146 & 705.064 & 617.134 & 646.112 & 204.788 & -36.801 \\ 
+  SPX.Index & 530.131 & 668.259 & 733.515 & 149.207 & 617.134 & 548.464 & 573.240 & 88.390 & -5.143 \\ 
+  OEX.Index & 551.248 & 695.011 & 692.423 & 163.998 & 646.112 & 573.240 & 606.755 & 66.388 & -52.953 \\ 
+  XAX.Index & 70.067 & 162.352 & -355.846 & -185.547 & 204.788 & 88.390 & 66.388 & 1402.348 & -7.745 \\ 
+  OMX.Index & 59.119 & 44.837 & 457.480 & 77.550 & -36.801 & -5.143 & -52.953 & -7.745 & 589.212 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+%
+%
+\begin{equation*}
+\begin{medsize}
+\Omega_{X_{log}}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Feb  2 20:46:07 2015
+\begin{bmatrix}{}
+& CCMP.Index & INDU.Index & TRAN.Index & UTIL.Index & NYA.Index & SPX.Index & OEX.Index & XAX.Index & OMX.Index \\ 
+  CCMP.Index & 1.000 & 0.996 & 0.694 & 0.640 & 0.968 & 0.986 & 0.975 & 0.082 & 0.106 \\ 
+  INDU.Index & 0.996 & 1.000 & 0.664 & 0.580 & 0.984 & 0.992 & 0.981 & 0.151 & 0.064 \\ 
+  TRAN.Index & 0.694 & 0.664 & 1.000 & 0.440 & 0.582 & 0.650 & 0.584 & -0.197 & 0.391 \\ 
+  UTIL.Index & 0.640 & 0.580 & 0.440 & 1.000 & 0.464 & 0.541 & 0.565 & -0.421 & 0.271 \\ 
+  NYA.Index & 0.968 & 0.984 & 0.582 & 0.464 & 1.000 & 0.992 & 0.988 & 0.206 & -0.057 \\ 
+  SPX.Index & 0.986 & 0.992 & 0.650 & 0.541 & 0.992 & 1.000 & 0.994 & 0.101 & -0.009 \\ 
+  OEX.Index & 0.975 & 0.981 & 0.584 & 0.565 & 0.988 & 0.994 & 1.000 & 0.072 & -0.089 \\ 
+  XAX.Index & 0.082 & 0.151 & -0.197 & -0.421 & 0.206 & 0.101 & 0.072 & 1.000 & -0.009 \\ 
+  OMX.Index & 0.106 & 0.064 & 0.391 & 0.271 & -0.057 & -0.009 & -0.089 & -0.009 & 1.000 \\ 
+  \end{bmatrix}
+\end{medsize}
+\end{equation*}
+From comparing \(\Sigma_{X_{percent}}\) to \(\Sigma_{X_{log}}\) for the monthly data, we see that \(abs(\Sigma_{X_{percent}}(CCMP.Index,CCMP.Index) - \Sigma_{X_{log}}(CCMP.Index,CCMP.Index)) = 3.917 \). Similarly for the correlation values, we can see that \(\Omega_{X_{percent}}- \Omega_{X_{log}} < 0.02 \) . We see that the difference between \(\Sigma_{X_{percent}}\) and \(\Sigma_{X_{log}}\) increasing. This is also true for \(\Omega_{X_{percent}}\) and \(\Omega_{X_{log}}\).
+
+\section*{Part iv}
+Overall, it seems that as the resolution of the data (number of sample points) gets higher, the variance goes down. We see for example the \(\Sigma_{X_{percent}}(CCMP.Index,CCMP.Index)\) entry for all frequencies increasing as the frequency of sampling goes down. Additionally, we see that as the number of samples increase, the values of the correlation matrix seem to increase. 
+%
+%
+%\begin{equation*}
+%\begin{medsize}
+%
+%\end{medsize}
+%\end{equation*}
 \end{document}

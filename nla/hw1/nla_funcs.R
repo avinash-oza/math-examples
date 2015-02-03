@@ -1,4 +1,4 @@
-print_latex<- function(mat,digits=-3,rownames_on=FALSE,colnames_on=FALSE) {
+print_latex<- function(mat,digits=-3,rownames_on=TRUE,colnames_on=TRUE) {
   a <- matrix(rnorm(nrow(mat) *ncol(mat)), nrow(mat) ,ncol(mat))
   l_table <- xtable(mat, digits=digits, align=rep("",ncol(a)+1))
   print(l_table, floating=FALSE, hline.after=NULL,tabular.environment="bmatrix", include.rownames=rownames_on, include.colnames=colnames_on)
