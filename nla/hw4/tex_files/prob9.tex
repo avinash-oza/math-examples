@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath,nccmath}
+
+\usepackage[landscape]{geometry}
+
+\begin{document}
+\section*{Problem 9}
+\begin{equation*}
+M_{\tau}= % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 20:57:06 2015
+\begin{bmatrix}{}
+ State\_name & w\_1 & w\_2 & w\_3 & w\_4 & w\_5 & w\_6 & w\_7 \\ 
+State\_price & \$1100 & \$1250 & \$1350 & \$1425 & \$1500 & \$1575 & \$1700  \\  
+Option\_type &&&&&&\\
+ P1200 &     100 &       0 &       0 &       0 &       0 &       0 &       0 \\ 
+  P1300 &     200 &      50 &       0 &       0 &       0 &       0 &       0 \\ 
+  P1400 &     300 &     150 &      50 &       0 &       0 &       0 &       0 \\ 
+  C1400 &       0 &       0 &       0 &      25 &     100 &     175 &     300 \\ 
+  C1450 &       0 &       0 &       0 &       0 &      50 &     125 &     250 \\ 
+  C1550 &       0 &       0 &       0 &       0 &       0 &      25 &     150 \\ 
+  C1600 &       0 &       0 &       0 &       0 &       0 &       0 &     100 \\ 
+  \end{bmatrix}
+\end{equation*}
+In order to show the market model is not arbitrage free, we start by finding the state prices Q from:
+\begin{equation*}
+S_{t_{0}} = M_{\tau}Q 
+\end{equation*}
+with
+\begin{equation*}
+S_{t_{0}} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 20:33:03 2015
+\begin{bmatrix}{}
+ 51.55 \\ 
+  77.70 \\ 
+  116.55 \\ 
+  71.10 \\ 
+  47.25 \\ 
+  15.80 \\ 
+  7.90 \\ 
+  \end{bmatrix}
+\end{equation*}
+We obtain that: 
+\begin{equation*}
+Q = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 20:35:33 2015
+\begin{bmatrix}{}
+  0.515500000 \\ 
+  -0.508000000 \\ 
+  0.762000000 \\ 
+  0.170000000 \\ 
+  0.155000000 \\ 
+  0.158000000 \\ 
+  0.079000000 \\ 
+  \end{bmatrix}
+\end{equation*}
+Since there is at least one value of Q that is not $>$ 0, we conclude that this market model is not arbitrage free.
+\end{document}

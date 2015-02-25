@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{amsmath,nccmath}
+
+\usepackage[landscape]{geometry}
+
+\begin{document}
+\section*{Problem 10}
+i) We obtain the payoff matrix as shown in (1).
+\begin{equation}
+M_{\tau}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 21:31:05 2015
+\begin{bmatrix}{}
+ Op\_Name & w\_1 & w\_2 & w\_3 & w\_4 & w\_5 & w\_6 & w\_7 & w\_8 \\ 
+State\_price & \$650 & \$875 & \$1000 & \$1125 & \$1237.50 & \$1312.50 & \$1387.50 & \$1500  \\  
+Option\_type &&&&&&&\\
+ C1200 &       0 &       0 &       0 &       0 & 37.500000 & 112.500000 & 187.500000 &     300 \\ 
+  C1275 &       0 &       0 &       0 &       0 & 0.000000 & 37.500000 & 112.500000 &     225 \\ 
+  C1350 &       0 &       0 &       0 &       0 & 0.000000 & 0.000000 & 37.500000 &     150 \\ 
+  C1425 &       0 &       0 &       0 &       0 & 0.000000 & 0.000000 & 0.000000 &      75 \\ 
+  P1200 &     550 &     325 &     200 &      75 & 0.000000 & 0.000000 & 0.000000 &       0 \\ 
+  P1050 &     400 &     175 &      50 &       0 & 0.000000 & 0.000000 & 0.000000 &       0 \\ 
+  P950 &     300 &      75 &       0 &       0 & 0.000000 & 0.000000 & 0.000000 &       0 \\ 
+  P800 &     150 &       0 &       0 &       0 & 0.000000 & 0.000000 & 0.000000 &       0 \\ 
+  \end{bmatrix}
+\end{equation}
+\begin{equation}
+{M_{\tau}}^{-1}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 21:35:27 2015
+\begin{bmatrix}{}
+ 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & -0.000000 & -0.000000 & 0.006667 \\ 
+  0.000000 & 0.000000 & 0.000000 & 0.000000 & -0.000000 & 0.000000 & 0.013333 & -0.026667 \\ 
+  0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.020000 & -0.046667 & 0.040000 \\ 
+  0.000000 & 0.000000 & 0.000000 & 0.000000 & 0.013333 & -0.053333 & 0.066667 & -0.040000 \\ 
+  0.026667 & -0.080000 & 0.106667 & -0.080000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 \\ 
+  0.000000 & 0.026667 & -0.080000 & 0.080000 & 0.000000 & 0.000000 & 0.000000 & 0.000000 \\ 
+  0.000000 & 0.000000 & 0.026667 & -0.053333 & 0.000000 & 0.000000 & 0.000000 & 0.000000 \\ 
+  0.000000 & 0.000000 & 0.000000 & 0.013333 & 0.000000 & 0.000000 & 0.000000 & 0.000000 \\ 
+  \end{bmatrix}
+\end{equation}
+ii) To determine whether the securites are non-redundant, we check to see if we can calculate the inverse of the payoff matrix. If the payoff matrix is invertible, we see that all the rows are linearly independent of each other. Since we are able to calculate the inverse of the payoff matrix (shown above), we conclude that all rows of the payoff matrix are linearly independent. Since the rows are linearly independent, we conclude that the securities are non redundant.
+\vspace{5mm} \\
+iii) From ii), we showed that the payoff matrix was invertible. Since the payoff matrix is invertible, we conclude that the payoff matrix is nonsingular and the market represented by it is complete.
+\vspace{5mm} \\
+iv) In order to show the market model is not arbitrage free, we start by finding the state prices Q from:
+\begin{equation*}
+S_{t_{0}} = M_{\tau}Q 
+\end{equation*}
+with
+\begin{equation*}
+S_{t_{0}} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 21:48:32 2015
+\begin{bmatrix}{}
+ 53.80 \\ 
+  22.30 \\ 
+  6.80 \\ 
+  1.62 \\ 
+  54.90 \\ 
+  14.75 \\ 
+  5.80 \\ 
+  1.43 \\ 
+  \end{bmatrix}
+\end{equation*}
+We obtain that: 
+\begin{equation*}
+Q = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 21:51:10 2015
+\begin{bmatrix}{}
+ 0.009500000 \\ 
+  0.039333333 \\ 
+  0.081333333 \\ 
+  0.275000000 \\ 
+  0.246000000 \\ 
+  0.180666667 \\ 
+  0.094666667 \\ 
+  0.021666667 \\ 
+  \end{bmatrix}
+\end{equation*}
+Since all of the entries of Q are strictly $>$ 0, we conclude that the market is arbitrage free.
+\vspace{5mm} \\
+v) See attached spreadsheet for calculation of relative approximate error and overall average approximate error. We see that on average, the error was about 6.6\% from the observed market price. For some options such as the 1400 call, we see that the model value was off by about 23\%. However, most options seem to be within a 5\% range of the market value.
+
+\end{document}

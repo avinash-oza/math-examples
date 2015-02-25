@@ -19,4 +19,5 @@ Q <- solve(payoff_matrix,s_t_0)
 #Part iii
 model_based_prices <- as.matrix(all_strikes[,2: ncol(all_strikes)])%*%Q
 strike_to_model_price<- cbind(all_strikes$Op_name,as.data.frame( model_based_prices))
+write.csv(strike_to_model_price,"p8_strike_model_price.csv")
 print_latex(strike_to_model_price,digits=9,rownames_on = FALSE)

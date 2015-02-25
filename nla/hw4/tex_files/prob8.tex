@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath,nccmath}
+
+\usepackage[landscape]{geometry}
+
+\begin{document}
+\section*{Problem 8}
+i) We obtain the payoff matrix as shown in (1). In order to show that the market is complete, we attempt to find the inverse of the payoff matrix. Since we are able to find the inverse (see (2)), we conclude that the market is complete.
+\begin{equation}
+M_{\tau}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 20:11:01 2015
+\begin{bmatrix}{}
+ State\_name & w\_1 & w\_2 & w\_3 & w\_4 & w\_5 & w\_6 & w\_7 & w\_8 & w\_9 \\
+ State\_price & \$950 & \$1237.50 & \$1312.50 & \$1362.50 & \$1387.50 & \$1425 & \$1500 & \$1575 & \$1675 \\  
+Option\_type &&&&&&&&\\
+ P1200 &     250 & 0.000000 & 0.000000 & 0.000000 & 0.000000 &       0 &       0 &       0 &       0 \\ 
+  P1275 &     325 & 37.500000 & 0.000000 & 0.000000 & 0.000000 &       0 &       0 &       0 &       0 \\ 
+  P1350 &     400 & 112.500000 & 37.500000 & 0.000000 & 0.000000 &       0 &       0 &       0 &       0 \\ 
+  P1375 &     425 & 137.500000 & 62.500000 & 12.500000 & 0.000000 &       0 &       0 &       0 &       0 \\ 
+  C1375 &       0 & 0.000000 & 0.000000 & 0.000000 & 12.500000 &      50 &     125 &     200 &     300 \\ 
+  C1400 &       0 & 0.000000 & 0.000000 & 0.000000 & 0.000000 &      25 &     100 &     175 &     275 \\ 
+  C1450 &       0 & 0.000000 & 0.000000 & 0.000000 & 0.000000 &       0 &      50 &     125 &     225 \\ 
+  C1550 &       0 & 0.000000 & 0.000000 & 0.000000 & 0.000000 &       0 &       0 &      25 &     125 \\ 
+  C1600 &       0 & 0.000000 & 0.000000 & 0.000000 & 0.000000 &       0 &       0 &       0 &      75 \\ 
+\end{bmatrix}
+\end{equation}
+\begin{equation}
+{M_{\tau}}^{-1}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Sun Feb 22 18:26:19 2015
+\begin{bmatrix}{}
+  0.004000000 & -0.000000000 & 0.000000000 & -0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 \\ 
+  -0.034666667 & 0.026666667 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 \\ 
+  0.061333333 & -0.080000000 & 0.026666667 & -0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 \\ 
+  -0.061333333 & 0.106666667 & -0.133333333 & 0.080000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 \\ 
+  0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.080000000 & -0.160000000 & 0.120000000 & -0.120000000 & 0.106666667 \\ 
+  0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.040000000 & -0.080000000 & 0.120000000 & -0.106666667 \\ 
+  0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.020000000 & -0.100000000 & 0.106666667 \\ 
+  0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.040000000 & -0.066666667 \\ 
+  0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.000000000 & 0.013333333 \\ 
+  \end{bmatrix}
+\end{equation}
+ii) In order to find the state prices Q, we solve the following equation for Q:
+\begin{equation*}
+S_{t_{0}} = M_{\tau}Q 
+\end{equation*}
+with
+\begin{equation*}
+S_{t_{0}} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 20:33:03 2015
+\begin{bmatrix}{}
+ 51.55 \\ 
+  70.15 \\ 
+  95.30 \\ 
+  105.30 \\ 
+  84.90 \\ 
+  71.10 \\ 
+  47.25 \\ 
+  15.80 \\ 
+  7.90 \\ 
+  \end{bmatrix}
+\end{equation*}
+We obtain that: 
+\begin{equation*}
+Q = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 20:35:33 2015
+\begin{bmatrix}{}
+ 0.206200000 \\ 
+  0.083600000 \\ 
+  0.091066667 \\ 
+  0.038266667 \\ 
+  0.032666667 \\ 
+  0.117333333 \\ 
+  0.207666667 \\ 
+  0.105333333 \\ 
+  0.105333333 \\ 
+  \end{bmatrix}
+\end{equation*}
+Since all of the entries of Q are strictly $>$ 0, we conclude that the market is arbitrage free.
+\vspace{5mm} \\
+iii) See attached spreadsheet for the obtained root mean square error value. Note that even though the securites that were used to create the market model are included in the table, only the securites that were not used to make the model are included in the root mean square value. \par With a RMSE value of $\sim 2.5\%$ , we can say that the securities not used to create the model priced within 2.5\% of their mid price. It appears that the addition of 2 more securities caused the RMSE to become half (5.06\% vs $\sim 2.5\%$). As a result, we can conclude that the 9 security model is more precise than the 7 security model presented in class.
+\end{document}
