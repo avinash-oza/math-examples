@@ -1,4 +1,7 @@
 options(digits=10)
+library("Matrix")
+library("xtable")
+
 print_latex<- function(mat,digits=-3,rownames_on=TRUE,colnames_on=TRUE) {
   a <- matrix(rnorm(nrow(mat) *ncol(mat)), nrow(mat) ,ncol(mat))
   l_table <- xtable(mat, digits=digits, align=rep("",ncol(a)+1))
@@ -41,9 +44,23 @@ correlation_calc <- function(corr_vector, covar_matrix) {
   return (D1_inv%*%covar_matrix%*%D1_inv)
 }
 
+cubic_spline_coeffs <- function(spline_coeff_vector) {
+  n <- length(spline_coeff_vector)
+  a <- c(0*1:n)
+  b <- c(0*1:n)
+  c <- c(0*1:n)
+  d <- c(0*1:4*n)
+  for (i in 1:n) {
+    a[i] <- v[4*i-3]
+    b[i] <- v[4*i-2]
+    c[i] <- v[4*i-1]
+    d[i] <- v[4*i]
+  }
+  return (cbind(a,b,c,d))
+}
+
 cubic_spline <- function(x, y) {
   
-  library("Matrix")
   n <- length(x) -1
   
   b <- c(0*1:(4*n))
@@ -75,5 +92,71 @@ cubic_spline <- function(x, y) {
   
   return (solve(M_bar,b))
   #return (b)
+  
+}
+
+efficent_cubic_spline <- function(x, v) {
+###################### Works for M_bar only!!!!############################
+  n <- length(x) -1
+  
+  a <- c(0*1:n)
+  b <- c(0*1:n)
+  c <- c(0*1:n)
+  d <- c(0*1:n)
+  
+  q <- c(0*1:n)
+  r <- c(0*1:n)
+  
+  z <- c(0*1:(n-1))
+  
+  M_bar <- matrix(0,nrow = n-1,ncol = n-1)
+  
+  for(i in 1:(n-1)) {
+    vec_val <- i+1
+    
+    z[i] <- 6*((v[vec_val+1] -v[vec_val])/(x[vec_val + 1] - x[vec_val]) -
+                 ((v[vec_val] - v[vec_val -1])/ (x[vec_val] - x[vec_val -1])))
+  }
+  
+  for(i in 1:(n-1)) { 
+    vec_val <- i+1
+    M_bar[i, i] <- 2*(x[vec_val +1] - x[vec_val -1])
+  }
+  
+  for(i in 1:(n-2)) { 
+    vec_val <- i+1
+    M_bar[i, i+ 1] <- x[vec_val +1] - x[vec_val]
+  }
+  
+  for(i in 2:(n-1)) { 
+    vec_val <- i+1
+    M_bar[i, i - 1] <- x[vec_val] - x[vec_val -1]
+  }
+#   
+   w <- solve(M_bar, z)
+#   
+#   for(i in 1:n) { 
+#     vec_val <- i+1
+#    
+#     c[i] <- (w[vec_val-1] * x[vec_val] - w[vec_val] * x[vec_val-1])/(2*(x[vec_val] - x[vec_val-1]))
+#     d[i] <- (w[vec_val] - w[vec_val-1])/(6*(x[vec_val] - x[vec_val -1]))
+#   }
+#   
+#   for(i in 1:n) { 
+#     vec_val <- i+1
+#     
+#     q[vec_val -1] <- v[vec_val -1] - c[vec_val] *(x[vec_val-1])^2 - d[vec_val]*(x[vec_val -1])^3
+#     r[vec_val] <- v[vec_val] - c[vec_val]*(x[vec_val])^2 - d[vec_val] *(x[vec_val])^3
+#   }
+#   
+#   for(i in 1:n) { 
+#     vec_val <- i+1
+#     
+#    a[vec_val] <- (q[vec_val -1] * x[vec_val] - r[vec_val] * x[vec_val-1])/ (x[vec_val] - x[vec_val-1])
+#    b[vec_val] <- (r[vec_val] - q[vec_val-1])/ (x[vec_val] - x[vec_val -1])
+#   }
+  
+   return (cubic_spline(x,v))
+#   return (cbind(a,b,c,d))
   
 }
