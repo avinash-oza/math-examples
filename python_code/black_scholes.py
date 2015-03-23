@@ -9,6 +9,9 @@ log = logging.getLogger(__name__)
 def d_1(t,S,K,T,sigma,q,r):
     return (math.log(S/K)+(r-q+sigma*sigma*0.5)*(T-t))/(sigma*math.sqrt(T-t))
 
+def pvf_d_1(pvf, disc, K, T, sigma):
+    return (math.log(pvf/(K*disc))/(sigma*math.sqrt(T)) + (sigma*math.sqrt(T)/2))
+
 def black_scholes(t,S,K,T,sigma,q,r,option_type=None):
     d1= d_1(t, S, K, T, sigma, q, r)
     d2 = d1 - sigma*math.sqrt(T-t)
@@ -40,6 +43,25 @@ def estimated_black_scholes(t,S,K,T,sigma,q,r, option_type=None):
         return call_price
     elif option_type.upper() =='PUT':
         return put_price
+
+def pvf_black_scholes(pvf, disc, K, T, sigma, option_type=None):
+    d1 = pvf_d_1(pvf, disc, K, T, sigma)
+    d2 = d1 - sigma*math.sqrt(T)
+
+    call_price = pvf*numerical_cumulative_distribution(d1) - K*disc*numerical_cumulative_distribution(d2)
+    put_price = K*disc*numerical_cumulative_distribution(-d2) - pvf*numerical_cumulative_distribution(-d1)
+    
+    if option_type is None:
+       log.warning ("NO OPTION TYPE PASSED, ASSUMING CALL")
+       return call_price
+    elif option_type.upper() == 'CALL':
+       return call_price
+    elif option_type.upper() =='PUT':
+       return put_price
+
+def vega_pvf_black_scholes(pvf, disc, K, T, x, option_type=None):
+    d1 = pvf_d_1(pvf, disc, K, T, x)
+    return pvf*math.sqrt(T/(2*math.pi))* math.exp(-d1*d1/2)
 
 def vega_black_scholes(t, S, K, T, x, q, r):
     d1=(math.log(S/K)+(r-q+x*x*0.5)*(T-t))/(x*math.sqrt(T-t))

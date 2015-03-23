@@ -10,7 +10,8 @@ import time
 import csv
 from simpson_rule import N, N__x, N_prime
 from bond_pv import calculate_df, lin_interpolator, calculate_rate
-from black_scholes import black_scholes, vega_black_scholes, d_1, estimated_black_scholes
+from black_scholes import black_scholes, vega_black_scholes, d_1, estimated_black_scholes, pvf_black_scholes, vega_pvf_black_scholes
+
 
 def test_f(sigma):
     return math.pow(sigma, 4) - 5*sigma*sigma + 4 - 1/(1 + math.exp(math.pow(sigma,3)))
@@ -116,6 +117,22 @@ def implied_volatility(price_call, S, K, T, q, r, initial_guess, option_type='CA
         count += 1
         x_old = x_new
         x_new = x_new - (black_scholes(0, S, K, T, x_new, q, r, option_type=option_type)- price_call)/vega_black_scholes(0, S, K, T, x_new, q, r)
+        log.info("Implied guess: {0:0.12f}".format(x_new))
+    log.info("Option type: {option_type} Iterations: {iterations}".format(iterations=count, option_type=option_type))
+    return x_new
+
+def pvf_implied_volatility(price_call,  pvf, disc, K, T,  initial_guess,  option_type='CALL'):
+    """Calculates implied volatility by evaluating black scholes using p152
+    """
+    x0 = initial_guess # An initial guess
+    x_new = x0
+    x_old = x0 - 1
+    count = 0
+    tol = math.pow(10, -6)
+    while abs(x_new - x_old) > tol:
+        count += 1
+        x_old = x_new
+        x_new = x_new - (pvf_black_scholes(pvf,disc,K,T,x_new, option_type=option_type)- price_call)/vega_pvf_black_scholes(pvf,disc,K,T,x_new, option_type=option_type)
         log.info("Implied guess: {0:0.12f}".format(x_new))
     log.info("Option type: {option_type} Iterations: {iterations}".format(iterations=count, option_type=option_type))
     return x_new
@@ -374,4 +391,20 @@ if __name__ == '__main__':
 #   print "r(0,2): {0:0.6f}".format(r_0_2)
 #   print "r(0,2.5): {0:0.6f}".format(r_0_25)
 ######################################################################
+    calc_vols = []
+    pvf = 1349.53656844512352108723
+    disc = 0.99642025461305938627
+    with open("../nla/hw7/p_2_options.csv") as f:
+        reader = csv.reader(f)
+        next(reader)
+        for row in reader:
+            call_price, strike, put_price = row
+            c_vol = implied_volatility(price_call=float(call_price), S=1370, K=int(strike), T=199/252, q=0.0193, r=0.0015,initial_guess=0.25,option_type='CALL')
+            c_pvf_vol = pvf_implied_volatility(price_call=float(call_price), pvf=pvf, disc=disc, K=int(strike), T=199/252,  initial_guess=0.25,  option_type='CALL')
+
+            p_vol = implied_volatility(price_call=float(put_price), S=1370, K=int(strike), T=199/252, q=0.0193, r=0.0015,initial_guess=0.25,option_type='PUT')
+            p_pvf_vol = pvf_implied_volatility(price_call=float(put_price),  pvf=pvf, disc=disc, K=int(strike), T=199/252,  initial_guess=0.25,  option_type='PUT')
+            calc_vols.append((c_vol,p_vol, c_pvf_vol, p_pvf_vol, int(strike)))
+    for x in calc_vols:
+        print "STRIKE: {strike} Old Method Call: {c_vol:0.9f}, Old Method Put: {p_vol:0.9f},  PVF Call: {c_pvf_vol:0.9f}, PVF Put: {p_pvf_vol:0.9f}".format(strike=x[4],c_vol=x[0],p_vol=x[1], c_pvf_vol=x[2], p_pvf_vol=x[3])
     pass
