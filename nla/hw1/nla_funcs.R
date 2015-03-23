@@ -9,6 +9,7 @@ print_latex<- function(mat,digits=-3,rownames_on=TRUE,colnames_on=TRUE) {
 }
 
 #Calculates the percent return of the elements. Takes in complete frame with dates
+#REQUIRES DATA WITH FURTHEST DATE AT THE TOP AND CLOSEST AT BOTTOM T1<T2
 calculate_percent_returns <- function(data_matrix) {
   data <- data_matrix[,2:length(data_matrix)] # Strip away the dates from the data
   percent_returns = diff(as.matrix(data))/as.matrix(data[-nrow(data),])
@@ -159,4 +160,12 @@ efficent_cubic_spline <- function(x, v) {
    return (cubic_spline(x,v))
 #   return (cbind(a,b,c,d))
   
+}
+
+least_squares <- function(B, y) { 
+  a <- rep(1, nrow(B)) # create the ones column to represent the constant
+  
+  A<- cbind(a,B)
+  
+  return (solve(t(A) %*%A, t(A)%*%y))
 }
