@@ -59,3 +59,8 @@ target/
 
 # Vim swp files
 *.swp
+
+*.pdf
+*.tex~
+*.log
+*.aux
