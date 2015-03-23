@@ -1,3 +1,4 @@
+rm(list = ls())
 source("../hw1/nla_funcs.R")
 
 #financials2012 <- read.csv("~/math_examples/nla/hw7/financials2012.csv")

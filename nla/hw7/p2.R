@@ -1,3 +1,4 @@
+rm(list = ls())
 source("../hw1/nla_funcs.R")
 
 
