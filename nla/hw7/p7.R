@@ -17,7 +17,7 @@ m <- c(0.06, 0.09, 0.12)
 r_f <- 0.03
 covar_matrix <- matrix(c(var_1, covar_1_2, covar_1_3, covar_1_2, var_2, covar_2_3, covar_1_3, covar_2_3, var_3 ), byrow = TRUE, nrow=3)
 
-# Part i Calculate by hand
+# Part i
 ret_i <- min_var_tangent_asset_alloc(covar_matrix, m, r_f, 1)
 w_T_i <- ret_i$w_T
 mu_i <- t(w_T_i) %*% m

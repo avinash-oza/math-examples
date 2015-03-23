@@ -406,5 +406,5 @@ if __name__ == '__main__':
             p_pvf_vol = pvf_implied_volatility(price_call=float(put_price),  pvf=pvf, disc=disc, K=int(strike), T=199/252,  initial_guess=0.25,  option_type='PUT')
             calc_vols.append((c_vol,p_vol, c_pvf_vol, p_pvf_vol, int(strike)))
     for x in calc_vols:
-        print "STRIKE: {strike} Old Method Call: {c_vol:0.9f}, Old Method Put: {p_vol:0.9f},  PVF Call: {c_pvf_vol:0.9f}, PVF Put: {p_pvf_vol:0.9f}".format(strike=x[4],c_vol=x[0],p_vol=x[1], c_pvf_vol=x[2], p_pvf_vol=x[3])
+        print "{c_vol:0.6f} & {c_pvf_vol:0.6f} & {strike} & {p_vol:0.6f} & {p_pvf_vol:0.6f} \\\ ".format(strike=x[4],c_vol=x[0],p_vol=x[1], c_pvf_vol=x[2], p_pvf_vol=x[3])
     pass

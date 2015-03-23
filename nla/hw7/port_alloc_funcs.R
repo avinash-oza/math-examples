@@ -6,6 +6,13 @@ sharpe_ratio <- function(mu_port, r_f, sigma_port) {
   return ((mu_port - r_f)/sigma_port)
 }
 
+value_at_risk <- function(n_days, c, sigma, mu, v_0) {
+  z_val <- c(2.3263, 2.0537, 1.6449,1.2816)
+  names(z_val) <- c(99,98,95,90)
+  
+  return (sqrt(n_days/252)*sigma*z_val[as.character(c)]*v_0 - n_days/252*mu*v_0)
+}
+
 #Portfolio allocation functions
 
 min_var_asset_no_cash<- function(covar_matrix) {
