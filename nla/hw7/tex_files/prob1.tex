@@ -1,0 +1,106 @@
+\documentclass{article}
+\usepackage{amsmath,nccmath}
+
+\usepackage[landscape]{geometry}
+
+\begin{document}
+\section*{Problem 1}
+
+% PART i
+i) We obtain the coefficents from the linear regression as:
+\begin{equation*}
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Tue Feb 24 21:48:32 2015
+\begin{bmatrix}{}
+ a \\
+ b_{1} \\
+ b_{2} \\
+ b_{3} \\
+  \end{bmatrix} =
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 15:17:37 2015
+\begin{bmatrix}{}
+  0.012302 \\ 
+  0.127208 \\ 
+  0.334045 \\ 
+  0.529777 \\ 
+  \end{bmatrix}
+\end{equation*}
+We use $error_{LR} = ||T_{3} - T{3,LR}||$ with $T_{3,LR}$ as:
+\begin{equation*}
+T_{3,LR} = \begin{bmatrix}{}
+  4.588362 \\ 
+  4.696690 \\ 
+  4.705329 \\ 
+  4.763252 \\ 
+  4.757954 \\ 
+  4.744383 \\ 
+  4.722605 \\ 
+  4.734584 \\ 
+  4.763043 \\ 
+  4.737924 \\ 
+  4.761771 \\ 
+  4.758430 \\ 
+  4.741950 \\ 
+  4.702896 \\ 
+  4.700827 \\ 
+  \end{bmatrix}
+\end{equation*}
+and obtain $error_{LR} = 0.043013$.
+\vspace{5mm} \\
+% PART ii
+ii) Using the linear interpolation given, we obtain:
+\begin{equation*}
+T_{3,linear\_interp} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 15:32:21 2015
+\begin{bmatrix}{}
+  4.650000 \\ 
+  4.770000 \\ 
+  4.773333 \\ 
+  4.783333 \\ 
+  4.783333 \\ 
+  4.796667 \\ 
+  4.780000 \\ 
+  4.786667 \\ 
+  4.810000 \\ 
+  4.790000 \\ 
+  4.803333 \\ 
+  4.800000 \\ 
+  4.783333 \\ 
+  4.760000 \\ 
+  4.763333 \\ 
+  \end{bmatrix}
+\end{equation*}
+The approximation error is $error_{linear\_interp} = 0.206613$.
+\vspace{5mm} \\
+% PART iii
+iii) Using the cubic interpolation, we obtain:
+\begin{equation*}
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 15:35:33 2015
+T_{3,cubic\_interp} = \begin{bmatrix}{}
+  4.641333 \\ 
+  4.762000 \\ 
+  4.765889 \\ 
+  4.780889 \\ 
+  4.781222 \\ 
+  4.789111 \\ 
+  4.773667 \\ 
+  4.781778 \\ 
+  4.805667 \\ 
+  4.786000 \\ 
+  4.799556 \\ 
+  4.795333 \\ 
+  4.779556 \\ 
+  4.756333 \\ 
+  4.758222 \\ 
+  \end{bmatrix}
+\end{equation*}
+The approximation error is $error_{cubic\_interp} = 0.186435$.
+\vspace{5mm} \\
+% Part iv
+iv) Based on the approximation errors calculated above, the OLS method gave the bestapproximation with about 4.3\% error . The cubic interpolation gave the second best approximation error with about 18.6\% error. The linear interpolation gave the worst approximation with about 20.6\% error.
+%\begin{equation*}
+%\end{equation*}
+
+\end{document}

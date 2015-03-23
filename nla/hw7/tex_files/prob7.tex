@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage{amsmath,nccmath}
+\usepackage[landscape]{geometry}
+
+\begin{document}
+\section*{Problem 7}
+% PART i
+i) To find the asset allocation of the tangency portfolio, we use the minimum variance portfolio from tangency portfolio function (p256 from the book) with:
+\begin{equation*}
+\Sigma_{R}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:17:33 2015
+\begin{bmatrix}{}
+ 0.032400 & -0.018000 & 0.006480 \\ 
+  -0.018000 & 0.040000 & -0.012000 \\ 
+  0.006480 & -0.012000 & 0.057600 \\ 
+  \end{bmatrix}
+ \mu = \begin{bmatrix}{} 
+0.06 \\
+0.09 \\
+0.12 \\
+  \end{bmatrix}
+\end{equation*}
+We obtain that:
+\begin{equation*}
+w_{T} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:19:05 2015
+\begin{bmatrix}{}
+ 0.308725 \\ 
+  0.424095 \\ 
+  0.267179 \\ 
+  \end{bmatrix}, 
+\mu_{portfolio} = 0.088754,
+\sigma_{portfolio} = 0.089612
+\end{equation*}  
+\vspace{5mm} \\
+%
+% PART ii
+%%
+ii) To find the asset allocation for a minimum variance portfolio with 10\% expected return, we use Table 9.1 on p255 with:
+\begin{equation*}
+\Sigma_{R}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:17:33 2015
+\begin{bmatrix}{}
+ 0.032400 & -0.018000 & 0.006480 \\ 
+  -0.018000 & 0.040000 & -0.012000 \\ 
+  0.006480 & -0.012000 & 0.057600 \\ 
+  \end{bmatrix}
+ \mu = \begin{bmatrix}{} 
+0.06 \\
+0.09 \\
+0.12 \\
+  \end{bmatrix}
+\end{equation*}
+We obtain that:
+\begin{equation*}
+w_{min} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:24:25 2015
+\begin{bmatrix}{}
+ 0.367820 \\ 
+  0.505274 \\ 
+  0.318322 \\ 
+  \end{bmatrix},
+w_{min,cash} = -0.191416,
+\sigma_{portfolio} = 0.106765
+\end{equation*}  
+\vspace{5mm} \\
+%
+% PART iii
+%%%%
+iii) To find the asset allocation for a maximum return portfolio with 20\% standard deviation, we use Table 9.3 on p257 with:
+\begin{equation*}
+\Sigma_{R}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:17:33 2015
+\begin{bmatrix}{}
+ 0.032400 & -0.018000 & 0.006480 \\ 
+  -0.018000 & 0.040000 & -0.012000 \\ 
+  0.006480 & -0.012000 & 0.057600 \\ 
+  \end{bmatrix}
+ \mu = \begin{bmatrix}{} 
+0.06 \\
+0.09 \\
+0.12 \\
+  \end{bmatrix}
+\end{equation*}
+We obtain that:
+\begin{equation*}
+w_{max} =% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:28:56 2015
+\begin{bmatrix}{}
+ 0.689029 \\ 
+  0.946518 \\ 
+  0.596304 \\ 
+  \end{bmatrix},
+w_{max,cash} = -1.231851,
+\mu_{portfolio} = 0.161129
+\end{equation*}  
+\end{document}

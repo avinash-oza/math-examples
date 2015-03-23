@@ -1,0 +1,133 @@
+\documentclass{article}
+\usepackage{amsmath,nccmath}
+\usepackage[landscape]{geometry}
+
+\begin{document}
+\section*{Problem 8}
+% PART i
+i) To find the asset allocation of the tangency portfolio, we use the minimum variance portfolio from tangency portfolio function (p256 from the book) with:
+\begin{equation*}
+\Sigma_{R}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:34:59 2015
+\begin{bmatrix}{}
+ 0.090000 & 0.010000 & 0.030000 & -0.015000 \\ 
+  0.010000 & 0.062500 & -0.020000 & -0.010000 \\ 
+  0.030000 & -0.020000 & 0.122500 & 0.020000 \\ 
+  -0.015000 & -0.010000 & 0.020000 & 0.057600 \\ 
+  \end{bmatrix},
+\mu = \begin{bmatrix}{}
+ 0.040000 \\ 
+  0.035000 \\ 
+  0.050000 \\ 
+  0.034000 \\ 
+  \end{bmatrix}
+\end{equation*}
+We obtain that:
+\begin{equation*}
+w_{T} = % latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:37:10 2015
+\begin{bmatrix}{}
+ 0.173699 \\ 
+  0.338145 \\ 
+  0.173604 \\ 
+  0.314552 \\ 
+  \end{bmatrix}, 
+\mu_{portfolio} = 0.038158,
+\sigma_{portfolio} = 0.135302,
+{Sharpe Ratio}_{portfolio} = 0.208112
+\end{equation*}
+\vspace{5mm} \\
+% PART ii
+%%
+ii) To find the asset allocation for a minimum variance portfolio with 3\% expected return, we use Table 9.1 on p255 with:
+\begin{equation*}
+\Sigma_{R}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:34:59 2015
+\begin{bmatrix}{}
+ 0.090000 & 0.010000 & 0.030000 & -0.015000 \\ 
+  0.010000 & 0.062500 & -0.020000 & -0.010000 \\ 
+  0.030000 & -0.020000 & 0.122500 & 0.020000 \\ 
+  -0.015000 & -0.010000 & 0.020000 & 0.057600 \\ 
+  \end{bmatrix},
+\mu = \begin{bmatrix}{}
+ 0.040000 \\ 
+  0.035000 \\ 
+  0.050000 \\ 
+  0.034000 \\ 
+  \end{bmatrix}
+\end{equation*}
+We obtain that:
+\begin{equation*}
+w_{min} =% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:43:40 2015
+\begin{bmatrix}{}
+ 0.123374 \\ 
+  0.240177 \\ 
+  0.123307 \\ 
+  0.223419 \\ 
+  \end{bmatrix},
+w_{min,cash} = 0.289722,
+\sigma_{portfolio} = 0.096102,
+{Sharpe Ratio}_{portfolio} = 0.208112
+\end{equation*}
+\vspace{5mm} \\
+% PART iii
+%%
+iii) To find the asset allocation for a maximum return portfolio with 27\% standard deviation, we use Table 9.3 on p257 with:
+\begin{equation*}
+\Sigma_{R}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:34:59 2015
+\begin{bmatrix}{}
+ 0.090000 & 0.010000 & 0.030000 & -0.015000 \\ 
+  0.010000 & 0.062500 & -0.020000 & -0.010000 \\ 
+  0.030000 & -0.020000 & 0.122500 & 0.020000 \\ 
+  -0.015000 & -0.010000 & 0.020000 & 0.057600 \\ 
+  \end{bmatrix},
+\mu = \begin{bmatrix}{}
+ 0.040000 \\ 
+  0.035000 \\ 
+  0.050000 \\ 
+  0.034000 \\ 
+  \end{bmatrix}
+\end{equation*}
+We obtain that:
+\begin{equation*}
+w_{max} =% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:47:44 2015
+\begin{bmatrix}{}
+ 0.346622 \\ 
+  0.674782 \\ 
+  0.346433 \\ 
+  0.627700 \\ 
+  \end{bmatrix},
+w_{max,cash} = -0.995537,
+\sigma_{portfolio} = 0.066190,
+{Sharpe Ratio}_{portfolio} = 0.208112
+\end{equation*}
+\vspace{5mm} \\
+% PART iv
+%%
+iv) To find the asset allocation for a minimum variance portfolio fully invested in both assets, we use 9.76 and 9.77 on p272 with:
+\begin{equation*}
+\Sigma_{R}=% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:34:59 2015
+\begin{bmatrix}{}
+ 0.090000 & 0.010000 & 0.030000 & -0.015000 \\ 
+  0.010000 & 0.062500 & -0.020000 & -0.010000 \\ 
+  0.030000 & -0.020000 & 0.122500 & 0.020000 \\ 
+  -0.015000 & -0.010000 & 0.020000 & 0.057600 \\ 
+  \end{bmatrix}
+\end{equation*}
+We obtain that:
+\begin{equation*}
+w_{no\_cash} =% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 19:52:30 2015
+\begin{bmatrix}{}
+ 0.190503 \\ 
+  0.339011 \\ 
+  0.089277 \\ 
+  0.381209 \\ 
+  \end{bmatrix},
+{Sharpe Ratio}_{portfolio} = 0.203450
+\end{equation*}
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{amsmath,nccmath}
+\usepackage[landscape]{geometry}
+
+\begin{document}
+\section*{Problem 3}
+% PART i
+i) We calculate the first 2 rows of the weekly percentage returns (with t1$<$t2) as:
+\begin{equation*}
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 16:03:07 2015
+\begin{bmatrix}{}
+ JPM & GS & MS & BAC & RBS & CS & UBS & RY..RBC. & BCS..Barclays. \\ 
+ 0.040137 & 0.098813 & 0.106254 & 0.069909 & 0.167120 & 0.150710 & 0.147929 & 0.044201 & 0.127273 \\ 
+  -0.004105 & 0.027928 & 0.011526 & 0.031250 & 0.013970 & 0.028264 & 0.025773 & -0.004854 & 0.010264 \\ 
+  \end{bmatrix}
+\end{equation*}
+\vspace{5mm} \\
+% PART ii
+ii)We obtain the regression of JPM returns with respect to the returns of GS, MS, BAC, RBS, CS, UBS, RY(RBC), and BCS..Barclays as:
+\begin{equation*}
+R_{JPM}  = a\textbf{1} + b_{1}R_{GS} + b_{2}R_{ MS} + b_{3}R_{BAC} +b_{4}R_{ RBS} + b_{5}R_{CS} + b_{6}R_{UBS} + b_{7}R_{RY(RBC)} +b_{8}R_{BCS(Barclays)}
+\end{equation*}
+with:
+\begin{equation*}
+\begin{bmatrix}{}
+ a \\
+ b_{1} \\
+ b_{2} \\
+ b_{3} \\
+b_{4} \\
+b_{5} \\
+b_{6} \\
+b_{7} \\
+b_{8} \\
+  \end{bmatrix} =
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 16:21:27 2015
+\begin{bmatrix}{}
+ -0.003353 \\ 
+  0.766295 \\ 
+  -0.077765 \\ 
+  0.297951 \\ 
+  0.281170 \\ 
+  -0.057614 \\ 
+  -0.414045 \\ 
+  0.147594 \\ 
+  -0.008806 \\ 
+  \end{bmatrix}
+\end{equation*}
+The approximation error for this regression is 0.129451.
+\vspace{5mm} \\
+% PART iii
+iii) We obtain the regression of JPM returns with respect to GS, MS, and BAC as:
+\begin{equation*}
+R_{JPM}  = a\textbf{1} + b_{1}R_{GS} + b_{2}R_{ MS} + b_{3}R_{BAC}
+\end{equation*}
+with:
+\begin{equation*}
+\begin{bmatrix}{}
+ a \\
+ b_{1} \\
+ b_{2} \\
+ b_{3} \\
+  \end{bmatrix} =
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 16:25:26 2015
+\begin{bmatrix}{}
+ -0.001394 \\ 
+  0.653710 \\ 
+  -0.037504 \\ 
+  0.261285 \\ 
+  \end{bmatrix}
+\end{equation*}
+The approximation error for this regression is 0.149884.
+\vspace{5mm} \\
+% Part iv
+We obtain the regression of JPM stock prices with respect to  as:
+\begin{equation*}
+Price_{JPM}  = a\textbf{1} + b_{1}Price_{GS} + b_{2}Price_{ MS} + b_{3}Price_{BAC} + b_{4}Price_{ RBS} + b_{5}Price_{CS} + b_{6}Price_{UBS} + b_{7}Price_{RY(RBC)} + b_{8}Price_{BCS(Barclays)}
+\end{equation*}
+with:
+\begin{equation*}
+\begin{bmatrix}{}
+ a \\
+ b_{1} \\
+ b_{2} \\
+ b_{3} \\
+b_{4} \\
+b_{5} \\
+b_{6} \\
+b_{7} \\
+b_{8} \\
+  \end{bmatrix} =
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Mar 23 16:45:26 2015
+\begin{bmatrix}{}
+ 8.816551 \\ 
+  0.016604 \\ 
+  0.066819 \\ 
+  1.471313 \\ 
+  1.207433 \\ 
+  0.899903 \\ 
+  -2.537320 \\ 
+  0.350212 \\ 
+  -0.170461 \\ 
+  \end{bmatrix}
+\end{equation*}
+The approximation error for this regression is 6.507915. The error from regressing the stock price of JPM with respect to the other stock prices is very high. When JPM returns were regressed against the returns of the other stocks, we found an error of about 12.9\%. Based on the approximation error obtained, we see that using a set of stock prices to predict another stock's price is very inaccurate. A much better approximation is found by using stock returns.
+%\begin{equation*}
+%\end{equation*}
+\end{document}
