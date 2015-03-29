@@ -38,8 +38,9 @@ covar_calc_corr <- function(corr_vector, correl_matrix) {
   return(D1%*%correl_matrix%*%D1)
 }
 
-correlation_calc <- function(corr_vector, covar_matrix) {
+correlation_calc <- function(covar_matrix) {
   # Formula for correlation is 
+  corr_vector <- sqrt(diag(covar_matrix))
   D1_inv <- diag(corr_vector^(-1))
   return (D1_inv%*%covar_matrix%*%D1_inv)
 }
