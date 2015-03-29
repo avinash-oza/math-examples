@@ -15,6 +15,18 @@ value_at_risk <- function(n_days, c, sigma, mu, v_0) {
 
 #Portfolio allocation functions
 
+tangency_portfolio <- function(covar_matrix, mu, r_f) {
+  # The dummy mu doesnt matter here
+  w_T <- min_var_tangent_asset_alloc(covar_matrix, mu, r_f, 1)$w_T
+  mu_tangency <- t(w_T) %*% mu
+  sigma_port <- min_var_tangent_asset_alloc(covar_matrix, mu, r_f, mu_tangency)$sigma_min
+  sharpe <- sharpe_ratio(mu_tangency, r_f, sigma_port)
+  
+  ret <- list("w_T" = w_T, "mu" = mu_tangency, "sigma" = sigma_port, "sharpe_ratio" = sharpe)
+  
+  return (ret)
+}
+
 min_var_asset_no_cash<- function(covar_matrix) {
   ones <- rep(1, nrow(covar_matrix)) # create the ones column to represent the constant
   
