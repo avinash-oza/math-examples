@@ -13,7 +13,12 @@ coeffs<- cubic_spline_coeffs(v)
 
 z<- splinefun(x,y,method="natural")
 c <- 0.625
-bond_price <- c*exp(-z(2/12)*(2/12)) + c*exp(-z(5/12)*(5/12)) + c*exp(-z(8/12)*(8/12)) + c*exp(-z(11/12)*(11/12)) + 100.625*exp(-z(14/12)*(14/12))
+flow_times <- c(2/12, 5/12,8/12,11/12,14/12)
+bond_price <- c*exp(-z(flow_times[1])*(flow_times[1])) +
+  c*exp(-z(flow_times[2])*(flow_times[2])) +
+  c*exp(-z(flow_times[3])*(flow_times[3])) +
+  c*exp(-z(flow_times[4])*(flow_times[4])) +
+  (100 +c)*exp(-z(flow_times[5])*(flow_times[5]))
 # 
 # 
 # plot(z,xlab = "Months/12",ylab="Zero Rate(%)",main="Zero rate vs Date")

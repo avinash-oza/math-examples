@@ -23,7 +23,6 @@ calculate_log_returns <- function(data_matrix) {
   return (log_returns)
 }
 
-
 # Calculates the covariance matrix for a returns matrix
 covar_calc <- function(returns_matrix) {
   col_avgs <- colMeans(returns_matrix)
@@ -52,10 +51,10 @@ cubic_spline_coeffs <- function(spline_coeff_vector) {
   c <- c(0*1:n)
   d <- c(0*1:4*n)
   for (i in 1:n) {
-    a[i] <- v[4*i-3]
-    b[i] <- v[4*i-2]
-    c[i] <- v[4*i-1]
-    d[i] <- v[4*i]
+    a[i] <- spline_coeff_vector[4*i-3]
+    b[i] <- spline_coeff_vector[4*i-2]
+    c[i] <- spline_coeff_vector[4*i-1]
+    d[i] <- spline_coeff_vector[4*i]
   }
   return (cbind(a,b,c,d))
 }
@@ -156,8 +155,13 @@ efficent_cubic_spline <- function(x, v) {
 #    a[vec_val] <- (q[vec_val -1] * x[vec_val] - r[vec_val] * x[vec_val-1])/ (x[vec_val] - x[vec_val-1])
 #    b[vec_val] <- (r[vec_val] - q[vec_val-1])/ (x[vec_val] - x[vec_val -1])
 #   }
-  
-   return (cubic_spline(x,v))
+   coeff_vector = cubic_spline(x,v) # Returns the single vector with all values
+   coeff_matrix = cubic_spline_coeffs(coeff_vector)
+   
+   ret <- list("coeff_vector" = coeff_vector, "coeff_matrix" = coeff_matrix,  "m_bar" = M_bar, "W" = z)
+
+return (ret)
+   #return (cubic_spline(x,v))
 #   return (cbind(a,b,c,d))
   
 }
