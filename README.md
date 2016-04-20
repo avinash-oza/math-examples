@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/avinash-oza/math-examples.svg?branch=master)](https://travis-ci.org/avinash-oza/math-examples)
 math-examples
 =============
 
