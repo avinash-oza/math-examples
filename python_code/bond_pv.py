@@ -30,8 +30,7 @@ def bond_price_inst_rate(cash_flow_times, cash_flow_values, inst_rate_function, 
     
     price = 0
 
-    for i in xrange(len(cash_flow_times)):
-        flow_time = cash_flow_times[i]
+    for i, flow_time in enumerate(cash_flow_times):
         inst_rate = converger(0, flow_time, inst_rate_function, tol_values[i], simpson_rule)
 
         discount_factor = calculate_df(inst_rate, 1)
@@ -47,8 +46,7 @@ def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
     
     price = 0
 
-    for i in xrange(len(cash_flow_times)):
-        flow_time = cash_flow_times[i]
+    for i, flow_time in enumerate(cash_flow_times):
         discount_factor = calculate_df(zero_rate_function(flow_time), flow_time)
         log.info("discount_factor for t={0} : {1:.12}".format(flow_time, discount_factor))
         price += cash_flow_values[i] * discount_factor
@@ -58,7 +56,7 @@ def bond_price_zero_rate(cash_flow_times, cash_flow_values, zero_rate_function):
 def calculate_flows(coupon, frequency, maturity):
     """
     coupon in dollars
-    frequency is an int
+    frequency is an int number of times a year
     maturity in months
     returns intervals scaled by years
     """
@@ -92,8 +90,7 @@ def bond_price(cash_flow_times, cash_flow_values, the_yield):
     """Bond price code on p69 
     """
     price = 0
-    for i in xrange(len(cash_flow_times)):
-        flow_time = cash_flow_times[i]
+    for i, flow_time in enumerate(cash_flow_times):
         discount_factor = math.exp(-flow_time*the_yield)
         price += cash_flow_values[i]*discount_factor
 
@@ -105,8 +102,7 @@ def bond_duration(cash_flow_times, cash_flow_values, the_yield, dollar_type=Fals
     price = bond_price(cash_flow_times, cash_flow_values, the_yield)
     duration = 0
 
-    for i in xrange(len(cash_flow_times)):
-        flow_time = cash_flow_times[i]
+    for i, flow_time in enumerate(cash_flow_times):
         discount_factor = calculate_df(the_yield, flow_time)
         duration += flow_time*cash_flow_values[i]*discount_factor
         
@@ -118,8 +114,7 @@ def bond_convexity(cash_flow_times, cash_flow_values, the_yield, dollar_type=Fal
     price = bond_price(cash_flow_times, cash_flow_values, the_yield)
     convexity = 0
 
-    for i in xrange(len(cash_flow_times)):
-        flow_time = cash_flow_times[i]
+    for i, flow_time in enumerate(cash_flow_times):
         discount_factor = calculate_df(the_yield, flow_time)
         convexity += flow_time*flow_time*cash_flow_values[i]*discount_factor
 
@@ -133,8 +128,7 @@ def bond_derivative(cash_flow_times, cash_flow_values, the_yield):
     Implemented from p149"""
     f_prime = 0
 
-    for i in xrange(len(cash_flow_times)):
-        flow_time = cash_flow_times[i]
+    for i, flow_time in enumerate(cash_flow_times):
         discount_factor = calculate_df(the_yield, flow_time)
         f_prime += flow_time * cash_flow_values[i] * discount_factor
 
@@ -143,7 +137,9 @@ def bond_derivative(cash_flow_times, cash_flow_values, the_yield):
 def bond_yield(cash_flow_times, cash_flow_values, bond_market_price, tol=math.pow(10, -6)):
     """Implements the bond yield formula using Newton's method on p150"""
 
-    assert len(cash_flow_times) == len(cash_flow_values), "Times and values length mismatch"
+    if len(cash_flow_times) != len(cash_flow_values):
+        raise Exception("Times and values length mismatch")
+
     x0 = 0.1 # initital guess
 
     x_new = x0
